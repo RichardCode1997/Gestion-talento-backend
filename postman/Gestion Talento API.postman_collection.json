@@ -1,0 +1,573 @@
+{
+  "info": {
+    "_postman_id": "ac80f83d-d774-4d50-a0a3-2c409ce6ec79",
+    "name": "Gestion Talento API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27663003"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"correo\":\"ssericksson@gmail.com\",\r\n    \"contraseña\":\"123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Usuarios",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Registrar Usuario",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Manolo\",\r\n    \"apellido\": \"Rojas\",\r\n    \"dni\": \"12345678\",\r\n    \"correo\": \"Manolo@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"direccion\": \"mz. abc lt. abc calle abc\",\r\n    \"celular\": \"123456789\",\r\n    \"rol\": {\r\n            \"idRol\": 4,\r\n            \"nombreRol\": \"SISTEMAS\"\r\n        }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar Usuario",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Jorge\",\r\n    \"apellido\": \"Rodriguez\",\r\n    \"dni\": \"12345678\",\r\n    \"correo\": \"jorge@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"direccion\": \"mz. abc lt. abc calle abc\",\r\n    \"celular\": \"123456789\",\r\n    \"rol\": {\r\n            \"idRol\": 3,\r\n            \"nombreRol\": \"ADMINISTRADOR\"\r\n        }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/usuarios/6",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar Usuario",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/usuarios/9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "usuarios",
+            "9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Horarios",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/horarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "horarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Registrar Horario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"hora_entrada\": \"08:00\",\r\n  \"hora_salida\": \"18:00\",\r\n  \"nombre\": \"Horario Diurno\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/horarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "horarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar Horario",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"hora_entrada\": \"02:00\",\r\n  \"hora_salida\": \"10:00\",\r\n  \"nombre\": \"Especial\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/horarios/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "horarios",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar Horario",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3NAZ21haWwuY29tIiwiaWF0IjoxNjg3OTgxNzE3LCJleHAiOjE2ODc5ODI2MTd9.5Z520xtV61z9YClIvEVrzmneiqEIulFM1Xij_hZth6MrGF2KzEXbNNUGWNkvZKcTzvLzY9ecvoL1HUgdvj603A",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/horarios/7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "horarios",
+            "7"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Noticias",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/noticias",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "noticias"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Registrar Noticias",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE2ODgwMDQwMjcsImV4cCI6MTY4ODAwNDkyN30.LE80H-FLJLU0HNG2Un9u5oEyMZPKk_pJKjgb8n5yqSb6BF5Hfny66E3KjgjowgU8fx8aUqgegeQEMTroyqG-iA",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"Examen medico\",\r\n  \"detalle\": \"Se considerara el proximo miércoles primero de mayo como feriado y se suspende el horario habitual de trabajo\",\r\n  \"estado\": \"Activa\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/noticias",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "noticias"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar Noticias",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImlhdCI6MTY5MjIyOTExNSwiZXhwIjoxNjkyMjMwMDE1fQ.X0J55k63HjtqFIUjYfX6GT-6PwiW62_osRFWxa_dfdA3GDlyproegEdshHFsTxG_yYnMc_eGd6bu7PV103OcdQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"FERIADO LARGO\",\r\n  \"detalle\": \"Por semana santa tendremos libre desde el miercoles 25 hasta el Lunes 29\",\r\n  \"estado\": \"Activo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/noticias/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "noticias",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar Noticias",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE2ODgwMDQwMjcsImV4cCI6MTY4ODAwNDkyN30.LE80H-FLJLU0HNG2Un9u5oEyMZPKk_pJKjgb8n5yqSb6BF5Hfny66E3KjgjowgU8fx8aUqgegeQEMTroyqG-iA",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/noticias/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "noticias",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Empleados",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/empleados",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "empleados"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Asistencias",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/asistencias",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "asistencias"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Faltas",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/faltas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "faltas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Permisos",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/permisos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "permisos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Tardanzas",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tardanzas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tardanzas"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
