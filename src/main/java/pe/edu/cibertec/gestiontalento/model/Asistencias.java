@@ -5,23 +5,22 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Asistencias")
+@Table(name = "asistencias")
 public class Asistencias {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Asistencia")
+    @Column(name = "id_asistencia")
     private int idAsistencia;
 
     @ManyToOne
-    @JoinColumn(name = "ID_Empleado")
+    @JoinColumn(name = "id_empleado")
     private Empleados empleado;
 
-    @Column(name = "Fecha")
     private String fecha;
 
-    @Column(name = "Hora_entrada")
+    @Column(name = "hora_entrada")
     private String horaEntrada;
 
-    @Column(name = "Hora_salida")
+    @Column(name = "hora_salida")
     private String horaSalida;
 }

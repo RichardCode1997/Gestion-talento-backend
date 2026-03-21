@@ -1,12 +1,11 @@
 package pe.edu.cibertec.gestiontalento.service;
 
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
-        import pe.edu.cibertec.gestiontalento.model.Noticias;
-        import pe.edu.cibertec.gestiontalento.repository.NoticiasRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pe.edu.cibertec.gestiontalento.model.Noticias;
+import pe.edu.cibertec.gestiontalento.repository.NoticiasRepository;
 
-        import java.util.List;
-        import java.util.Optional;
+import java.util.List;
 
 @Service
 public class NoticiasService {
@@ -18,36 +17,26 @@ public class NoticiasService {
         this.noticiasRepository = noticiasRepository;
     }
 
-    public Noticias crearNoticia(Noticias noticias) {
-        return noticiasRepository.save(noticias);
+    public Noticias crearNoticia(Noticias noticia) {
+        return noticiasRepository.save(noticia);
     }
 
-    public List<Noticias> listarNoticia() {
+    public List<Noticias> listarNoticias() {
         return noticiasRepository.findAll();
     }
 
     public Noticias obtenerNoticiaPorId(int id) {
-        Optional<Noticias> rol = noticiasRepository.findById(id);
-        if (rol.isPresent()) {
-            return rol.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró la Noticia especificada.");
-        }
+        return noticiasRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la noticia con ID: " + id));
     }
 
-    public Noticias actualizarNoticia(Noticias noticias) {
-        validarExistenciaNoticia(noticias.getIdNoticia());
-        return noticiasRepository.save(noticias);
+    public Noticias actualizarNoticia(Noticias noticia) {
+        obtenerNoticiaPorId(noticia.getIdNoticia()); // Valida existencia
+        return noticiasRepository.save(noticia);
     }
 
     public void eliminarNoticia(int id) {
-        validarExistenciaNoticia(id);
-        noticiasRepository.deleteById(id);
-    }
-
-    private void validarExistenciaNoticia(int id) {
-        if (!noticiasRepository.existsById(id)) {
-            throw new IllegalArgumentException("No se encontró la Noticia especificada.");
-        }
+        Noticias noticia = obtenerNoticiaPorId(id); // Valida existencia
+        noticiasRepository.delete(noticia);
     }
 }

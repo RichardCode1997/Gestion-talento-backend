@@ -11,7 +11,7 @@ import pe.edu.cibertec.gestiontalento.service.DepartamentosService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/departamentos")
+@RequestMapping("/api/departamentos")
 public class DepartamentosController {
 
     private final DepartamentosService departamentosService;
@@ -23,32 +23,28 @@ public class DepartamentosController {
 
     @PostMapping
     public ResponseEntity<Departamentos> crearDepartamento(@RequestBody Departamentos departamento) {
-        Departamentos nuevoDepartamento = departamentosService.crearDepartamento(departamento);
-        return new ResponseEntity<>(nuevoDepartamento, HttpStatus.CREATED);
+        return new ResponseEntity<>(departamentosService.crearDepartamento(departamento), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Departamentos>> listarDepartamentos() {
-        List<Departamentos> departamentos = departamentosService.listarDepartamentos();
-        return new ResponseEntity<>(departamentos, HttpStatus.OK);
+        return ResponseEntity.ok(departamentosService.listarDepartamentos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Departamentos> obtenerDepartamentoPorId(@PathVariable int id) {
-        Departamentos departamento = departamentosService.obtenerDepartamentoPorId(id);
-        return new ResponseEntity<>(departamento, HttpStatus.OK);
+        return ResponseEntity.ok(departamentosService.obtenerDepartamentoPorId(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Departamentos> actualizarDepartamento(@PathVariable int id, @RequestBody Departamentos departamento) {
         departamento.setIdDepartamento(id);
-        Departamentos departamentoActualizado = departamentosService.actualizarDepartamento(departamento);
-        return new ResponseEntity<>(departamentoActualizado, HttpStatus.OK);
+        return ResponseEntity.ok(departamentosService.actualizarDepartamento(departamento));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarDepartamento(@PathVariable int id) {
         departamentosService.eliminarDepartamento(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -11,7 +11,7 @@ import pe.edu.cibertec.gestiontalento.service.UsuariosService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuariosController {
 
     private final UsuariosService usuariosService;
@@ -23,31 +23,57 @@ public class UsuariosController {
 
     @PostMapping
     public ResponseEntity<Usuarios> crearUsuario(@RequestBody Usuarios usuario) {
-        Usuarios nuevoUsuario = usuariosService.crearUsuario(usuario);
-        return new ResponseEntity<>(nuevoUsuario, HttpStatus.CREATED);
+        return new ResponseEntity<>(usuariosService.crearUsuario(usuario), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Usuarios>> listarUsuarios() {
-        List<Usuarios> usuarios = usuariosService.listarUsuarios();
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
+        return ResponseEntity.ok(usuariosService.listarUsuarios());
+    }
+
+    @GetMapping("/activos")
+    public ResponseEntity<List<Usuarios>> listarActivos() {
+        return ResponseEntity.ok(usuariosService.listarUsuariosActivos());
+    }
+
+    @GetMapping("/inactivos")
+    public ResponseEntity<List<Usuarios>> listarSoloInactivos() {
+        List<Usuarios> inactivos = usuariosService.listarUsuariosInactivos();
+        return ResponseEntity.ok(inactivos);
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<Usuarios> buscarPorCorreo(@RequestParam String correo) {
+        return ResponseEntity.ok(usuariosService.obtenerPorCorreo(correo));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuarios> obtenerUsuarioPorId(@PathVariable int id) {
-        Usuarios usuario = usuariosService.obtenerUsuarioPorId(id);
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
+        return ResponseEntity.ok(usuariosService.obtenerUsuarioPorId(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuarios> modificarUsuario(@PathVariable int id, @RequestBody Usuarios usuarioModificado) {
-        Usuarios usuarioActualizado = usuariosService.modificarUsuario(id, usuarioModificado);
-        return new ResponseEntity<>(usuarioActualizado, HttpStatus.OK);
+        return ResponseEntity.ok(usuariosService.modificarUsuario(id, usuarioModificado));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable int id) {
         usuariosService.eliminarUsuario(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
+    }
+
+    // Bloqueo de acceso (Solo cambia estado a 0)
+    @PatchMapping("/{id}/desactivar")
+    public ResponseEntity<Void> desactivarUsuario(@PathVariable int id) {
+        usuariosService.desactivarUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // Desbloqueo de acceso (Solo cambia estado a 1)
+    @PatchMapping("/{id}/activar")
+    public ResponseEntity<Void> activarUsuario(@PathVariable int id) {
+        usuariosService.activarUsuario(id);
+        return ResponseEntity.noContent().build();
     }
 }

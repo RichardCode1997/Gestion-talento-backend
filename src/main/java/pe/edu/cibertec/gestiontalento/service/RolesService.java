@@ -6,7 +6,6 @@ import pe.edu.cibertec.gestiontalento.model.Roles;
 import pe.edu.cibertec.gestiontalento.repository.RolesRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RolesService {
@@ -27,27 +26,23 @@ public class RolesService {
     }
 
     public Roles obtenerRolPorId(int id) {
-        Optional<Roles> rol = rolesRepository.findById(id);
-        if (rol.isPresent()) {
-            return rol.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró el rol especificado.");
-        }
+        return rolesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el rol con ID: " + id));
+    }
+
+    // Nuevo: Útil para buscar roles por nombre (ej. ROLE_ADMIN)
+    public Roles obtenerRolPorNombre(String nombre) {
+        return rolesRepository.findByNombreRol(nombre)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el rol: " + nombre));
     }
 
     public Roles actualizarRol(Roles rol) {
-        validarExistenciaRol(rol.getIdRol());
+        obtenerRolPorId(rol.getIdRol()); // Valida existencia
         return rolesRepository.save(rol);
     }
 
     public void eliminarRol(int id) {
-        validarExistenciaRol(id);
-        rolesRepository.deleteById(id);
-    }
-
-    private void validarExistenciaRol(int id) {
-        if (!rolesRepository.existsById(id)) {
-            throw new IllegalArgumentException("No se encontró el rol especificado.");
-        }
+        Roles rol = obtenerRolPorId(id); // Valida existencia
+        rolesRepository.delete(rol);
     }
 }

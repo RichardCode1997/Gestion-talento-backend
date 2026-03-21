@@ -11,7 +11,7 @@ import pe.edu.cibertec.gestiontalento.service.PermisosService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/permisos")
+@RequestMapping("/api/permisos")
 public class PermisosController {
 
     private final PermisosService permisosService;
@@ -23,32 +23,28 @@ public class PermisosController {
 
     @PostMapping
     public ResponseEntity<Permisos> crearPermiso(@RequestBody Permisos permiso) {
-        Permisos nuevoPermiso = permisosService.crearPermiso(permiso);
-        return new ResponseEntity<>(nuevoPermiso, HttpStatus.CREATED);
+        return new ResponseEntity<>(permisosService.crearPermiso(permiso), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Permisos>> listarPermisos() {
-        List<Permisos> permisos = permisosService.listarPermisos();
-        return new ResponseEntity<>(permisos, HttpStatus.OK);
+        return ResponseEntity.ok(permisosService.listarPermisos());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Permisos> obtenerPermisoPorId(@PathVariable int id) {
-        Permisos permiso = permisosService.obtenerPermisoPorId(id);
-        return new ResponseEntity<>(permiso, HttpStatus.OK);
+        return ResponseEntity.ok(permisosService.obtenerPermisoPorId(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Permisos> actualizarPermiso(@PathVariable int id, @RequestBody Permisos permiso) {
         permiso.setIdPermiso(id);
-        Permisos permisoActualizado = permisosService.actualizarPermiso(permiso);
-        return new ResponseEntity<>(permisoActualizado, HttpStatus.OK);
+        return ResponseEntity.ok(permisosService.actualizarPermiso(permiso));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarPermiso(@PathVariable int id) {
         permisosService.eliminarPermiso(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

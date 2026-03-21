@@ -6,7 +6,6 @@ import pe.edu.cibertec.gestiontalento.model.Horarios;
 import pe.edu.cibertec.gestiontalento.repository.HorariosRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HorariosService {
@@ -27,32 +26,17 @@ public class HorariosService {
     }
 
     public Horarios obtenerHorarioPorId(int id) {
-        Optional<Horarios> horario = horariosRepository.findById(id);
-        if (horario.isPresent()) {
-            return horario.get();
-        } else {
-            // Manejar el caso de horario no encontrado
-            throw new IllegalArgumentException("No se encontró el horario especificado.");
-        }
+        return horariosRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el horario con ID: " + id));
     }
 
     public Horarios actualizarHorario(Horarios horario) {
-        Optional<Horarios> horarioExistente = horariosRepository.findById(horario.getIdHorario());
-        if (horarioExistente.isPresent()) {
-            return horariosRepository.save(horario);
-        } else {
-            // Manejar el caso de horario no encontrado
-            throw new IllegalArgumentException("No se encontró el horario especificado.");
-        }
+        obtenerHorarioPorId(horario.getIdHorario()); // Valida existencia
+        return horariosRepository.save(horario);
     }
 
     public void eliminarHorario(int id) {
-        Optional<Horarios> horarioExistente = horariosRepository.findById(id);
-        if (horarioExistente.isPresent()) {
-            horariosRepository.deleteById(id);
-        } else {
-            // Manejar el caso de horario no encontrado
-            throw new IllegalArgumentException("No se encontró el horario especificado.");
-        }
+        Horarios horario = obtenerHorarioPorId(id); // Valida existencia
+        horariosRepository.delete(horario);
     }
 }

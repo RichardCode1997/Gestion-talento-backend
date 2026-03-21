@@ -6,7 +6,6 @@ import pe.edu.cibertec.gestiontalento.model.Asistencias;
 import pe.edu.cibertec.gestiontalento.repository.AsistenciasRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AsistenciasService {
@@ -27,29 +26,17 @@ public class AsistenciasService {
     }
 
     public Asistencias obtenerAsistenciaPorId(int id) {
-        Optional<Asistencias> asistencia = asistenciasRepository.findById(id);
-        if (asistencia.isPresent()) {
-            return asistencia.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró la asistencia especificada.");
-        }
+        return asistenciasRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la asistencia con ID: " + id));
     }
 
     public Asistencias actualizarAsistencia(Asistencias asistencia) {
-        Optional<Asistencias> asistenciaExistente = asistenciasRepository.findById(asistencia.getIdAsistencia());
-        if (asistenciaExistente.isPresent()) {
-            return asistenciasRepository.save(asistencia);
-        } else {
-            throw new IllegalArgumentException("No se encontró la asistencia especificada.");
-        }
+        obtenerAsistenciaPorId(asistencia.getIdAsistencia()); // Valida existencia
+        return asistenciasRepository.save(asistencia);
     }
 
     public void eliminarAsistencia(int id) {
-        Optional<Asistencias> asistenciaExistente = asistenciasRepository.findById(id);
-        if (asistenciaExistente.isPresent()) {
-            asistenciasRepository.deleteById(id);
-        } else {
-            throw new IllegalArgumentException("No se encontró la asistencia especificada.");
-        }
+        Asistencias asistencia = obtenerAsistenciaPorId(id); // Valida existencia
+        asistenciasRepository.delete(asistencia);
     }
 }

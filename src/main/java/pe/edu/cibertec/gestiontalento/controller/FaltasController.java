@@ -11,7 +11,7 @@ import pe.edu.cibertec.gestiontalento.service.FaltasService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/faltas")
+@RequestMapping("/api/faltas")
 public class FaltasController {
 
     private final FaltasService faltasService;
@@ -23,32 +23,34 @@ public class FaltasController {
 
     @PostMapping
     public ResponseEntity<Faltas> crearFalta(@RequestBody Faltas falta) {
-        Faltas nuevaFalta = faltasService.crearFalta(falta);
-        return new ResponseEntity<>(nuevaFalta, HttpStatus.CREATED);
+        return new ResponseEntity<>(faltasService.crearFalta(falta), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Faltas>> listarFaltas() {
-        List<Faltas> faltas = faltasService.listarFaltas();
-        return new ResponseEntity<>(faltas, HttpStatus.OK);
+        return ResponseEntity.ok(faltasService.listarFaltas());
+    }
+
+    // Nuevo: Endpoint para ver faltas de un empleado específico
+    @GetMapping("/empleado/{idEmpleado}")
+    public ResponseEntity<List<Faltas>> listarPorEmpleado(@PathVariable int idEmpleado) {
+        return ResponseEntity.ok(faltasService.listarPorEmpleado(idEmpleado));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Faltas> obtenerFaltaPorId(@PathVariable int id) {
-        Faltas falta = faltasService.obtenerFaltaPorId(id);
-        return new ResponseEntity<>(falta, HttpStatus.OK);
+        return ResponseEntity.ok(faltasService.obtenerFaltaPorId(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Faltas> actualizarFalta(@PathVariable int id, @RequestBody Faltas falta) {
         falta.setIdFalta(id);
-        Faltas faltaActualizada = faltasService.actualizarFalta(falta);
-        return new ResponseEntity<>(faltaActualizada, HttpStatus.OK);
+        return ResponseEntity.ok(faltasService.actualizarFalta(falta));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarFalta(@PathVariable int id) {
         faltasService.eliminarFalta(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

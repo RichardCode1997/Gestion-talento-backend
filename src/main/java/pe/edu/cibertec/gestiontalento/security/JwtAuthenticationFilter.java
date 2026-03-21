@@ -9,27 +9,25 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-/*La función de esta clase será validar la información del token y si esto es exitoso,
-establecerá la autenticación de un usuario en la solicitud o en el contexto de seguridad de nuestra aplicación*/
+@Component // Agregamos esto para que Spring pueda inyectarlo automáticamente
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private CustomUsersDetailsService customUsersDetailsService;
+
     @Autowired
     private JwtGenerador jwtGenerador;
 
-    /*Con el siguiente método extraeremos  el token JWT de la cabecera de nuestra petición Http("Authorization")
-     * luego lo validaremos y finalmente se retornará*/
     private String obtenerTokenDeSolicitud(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            //Aca si se encuentra el token JWT, se devuelve una subcadena de "bearerToken" que comienza después de los primeros 7 caracteres hasta el final de la cadena
-            return bearerToken.substring(7, bearerToken.length());
+            return bearerToken.substring(7); // Simplificado: desde el índice 7 hasta el final
         }
         return null;
     }
@@ -39,27 +37,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        // 1. Extraemos el token
+        // 1. Extraemos el token de la cabecera
         String token = obtenerTokenDeSolicitud(request);
 
-        // 2. Validamos el token (con el cambio que hicimos en JwtGenerador para que no lance excepción)
+        // 2. Validamos el token usando el generador actualizado
         if (StringUtils.hasText(token) && jwtGenerador.validarToken(token)) {
 
-            // 3. Obtenemos los detalles del usuario
+            // 3. Obtenemos el nombre de usuario (correo) del token
             String username = jwtGenerador.obtenerUsernameDeJwt(token);
+
+            // 4. Cargamos los datos del usuario desde la BD
             UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);
 
-            // 4. CREAMOS LA AUTENTICACIÓN (Sin filtrar por rol aquí)
+            // 5. Creamos el objeto de autenticación
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-            // 5. LO REGISTRAMOS EN EL CONTEXTO DE SEGURIDAD
+            // 6. Seteamos la seguridad en el contexto de Spring
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
-        // 6. CONTINUAMOS CON LA CADENA (Si no hubo token, pasará como anónimo y SecurityConfig decidirá)
+        // 7. Continuamos con el siguiente filtro en la cadena
         filterChain.doFilter(request, response);
     }
 }

@@ -3,16 +3,15 @@ package pe.edu.cibertec.gestiontalento.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Data
 @Entity
-@Table(name = "Departamentos")
+@Table(name = "departamentos")
 public class Departamentos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Departamento")
+    @Column(name = "id_departamento")
     private int idDepartamento;
 
-    @Column(name = "Nombre_Departamento")
+    @Column(name = "nombre_departamento")
     private String nombreDepartamento;
 }

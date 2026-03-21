@@ -6,7 +6,6 @@ import pe.edu.cibertec.gestiontalento.model.Tardanzas;
 import pe.edu.cibertec.gestiontalento.repository.TardanzasRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TardanzasService {
@@ -26,28 +25,23 @@ public class TardanzasService {
         return tardanzasRepository.findAll();
     }
 
+    // Nuevo: Buscar tardanzas de un empleado específico usando el metodo del repository
+    public List<Tardanzas> listarPorEmpleado(int idEmpleado) {
+        return tardanzasRepository.findByEmpleadoIdEmpleado(idEmpleado);
+    }
+
     public Tardanzas obtenerTardanzaPorId(int id) {
-        Optional<Tardanzas> tardanza = tardanzasRepository.findById(id);
-        if (tardanza.isPresent()) {
-            return tardanza.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró la tardanza especificada.");
-        }
+        return tardanzasRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la tardanza con ID: " + id));
     }
 
     public Tardanzas actualizarTardanza(Tardanzas tardanza) {
-        validarExistenciaTardanza(tardanza.getIdTardanza());
+        obtenerTardanzaPorId(tardanza.getIdTardanza()); // Valida existencia
         return tardanzasRepository.save(tardanza);
     }
 
     public void eliminarTardanza(int id) {
-        validarExistenciaTardanza(id);
-        tardanzasRepository.deleteById(id);
-    }
-
-    private void validarExistenciaTardanza(int id) {
-        if (!tardanzasRepository.existsById(id)) {
-            throw new IllegalArgumentException("No se encontró la tardanza especificada.");
-        }
+        Tardanzas tardanza = obtenerTardanzaPorId(id); // Valida existencia
+        tardanzasRepository.delete(tardanza);
     }
 }

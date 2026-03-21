@@ -11,7 +11,7 @@ import pe.edu.cibertec.gestiontalento.service.HorariosService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/horarios")
+@RequestMapping("/api/horarios")
 public class HorariosController {
 
     private final HorariosService horariosService;
@@ -23,32 +23,28 @@ public class HorariosController {
 
     @PostMapping
     public ResponseEntity<Horarios> crearHorario(@RequestBody Horarios horario) {
-        Horarios nuevoHorario = horariosService.crearHorario(horario);
-        return new ResponseEntity<>(nuevoHorario, HttpStatus.CREATED);
+        return new ResponseEntity<>(horariosService.crearHorario(horario), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Horarios>> listarHorarios() {
-        List<Horarios> horarios = horariosService.listarHorarios();
-        return new ResponseEntity<>(horarios, HttpStatus.OK);
+        return ResponseEntity.ok(horariosService.listarHorarios());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Horarios> obtenerHorarioPorId(@PathVariable int id) {
-        Horarios horario = horariosService.obtenerHorarioPorId(id);
-        return new ResponseEntity<>(horario, HttpStatus.OK);
+        return ResponseEntity.ok(horariosService.obtenerHorarioPorId(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Horarios> actualizarHorario(@PathVariable int id, @RequestBody Horarios horario) {
         horario.setIdHorario(id);
-        Horarios horarioActualizado = horariosService.actualizarHorario(horario);
-        return new ResponseEntity<>(horarioActualizado, HttpStatus.OK);
+        return ResponseEntity.ok(horariosService.actualizarHorario(horario));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarHorario(@PathVariable int id) {
         horariosService.eliminarHorario(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

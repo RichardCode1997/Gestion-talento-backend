@@ -6,7 +6,6 @@ import pe.edu.cibertec.gestiontalento.model.Departamentos;
 import pe.edu.cibertec.gestiontalento.repository.DepartamentosRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DepartamentosService {
@@ -27,29 +26,17 @@ public class DepartamentosService {
     }
 
     public Departamentos obtenerDepartamentoPorId(int id) {
-        Optional<Departamentos> departamento = departamentosRepository.findById(id);
-        if (departamento.isPresent()) {
-            return departamento.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró el departamento especificado.");
-        }
+        return departamentosRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el departamento con ID: " + id));
     }
 
     public Departamentos actualizarDepartamento(Departamentos departamento) {
-        Optional<Departamentos> departamentoExistente = departamentosRepository.findById(departamento.getIdDepartamento());
-        if (departamentoExistente.isPresent()) {
-            return departamentosRepository.save(departamento);
-        } else {
-            throw new IllegalArgumentException("No se encontró el departamento especificado.");
-        }
+        obtenerDepartamentoPorId(departamento.getIdDepartamento()); // Valida existencia
+        return departamentosRepository.save(departamento);
     }
 
     public void eliminarDepartamento(int id) {
-        Optional<Departamentos> departamentoExistente = departamentosRepository.findById(id);
-        if (departamentoExistente.isPresent()) {
-            departamentosRepository.deleteById(id);
-        } else {
-            throw new IllegalArgumentException("No se encontró el departamento especificado.");
-        }
+        Departamentos depto = obtenerDepartamentoPorId(id); // Valida existencia
+        departamentosRepository.delete(depto);
     }
 }
