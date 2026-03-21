@@ -22,7 +22,7 @@ SELECT 'ssericksson@gmail.com', '$2a$12$YLTI.MC1Y2htSfU3ox2TPOLQDwECywi2sibwsX1M
 FROM roles r WHERE r.nombre_rol = 'ADMINISTRADOR';
 
 /* 5. EMPLEADOS - Información Personal + Relaciones */
--- Aqui vinculamos todo usando nombres y correos, no IDs manuales
+-- Aqui vinculamos usando nombres y correos, no IDs manuales
 INSERT INTO empleados (nombre, apellido, dni, celular, direccion, id_departamento, id_horario, id_usuario, estado) -- Agregamos 'estado' 1
 SELECT
     'Richard', 'Quispe', '12345678', '933788480', 'Calle abc mz abc lt.abc',
