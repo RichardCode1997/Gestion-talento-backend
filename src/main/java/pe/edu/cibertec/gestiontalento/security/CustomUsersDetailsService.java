@@ -11,27 +11,41 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pe.edu.cibertec.gestiontalento.model.Roles;
 import pe.edu.cibertec.gestiontalento.model.Usuarios;
-import pe.edu.cibertec.gestiontalento.repository.IUsuariosRepository;
+import pe.edu.cibertec.gestiontalento.repository.UsuariosRepository;
 
 import java.util.Collection;
 import java.util.Collections;
 
 @Service
 public class CustomUsersDetailsService implements UserDetailsService  {
-    private IUsuariosRepository usuariosRepo;
+    private UsuariosRepository usuariosRepo;
 
     @Autowired
-    public CustomUsersDetailsService(IUsuariosRepository usuariosRepo) {
+    public CustomUsersDetailsService(UsuariosRepository usuariosRepo) {
         this.usuariosRepo = usuariosRepo;
     }
-    //Método para traernos una lista de autoridades por medio de una lista de roles
+    //Metodo para traernos una lista de autoridades por medio de una lista de roles
     public Collection<GrantedAuthority> mapToAuthorities(Roles rol){
-        return Collections.singletonList(new SimpleGrantedAuthority(rol.getNombreRol()));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + rol.getNombreRol()));
     }
-    //Método para traernos un usuario con todos sus datos por medio de sus username
+
+
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Usuarios usuarios = usuariosRepo.findByCorreo(correo).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-        return new User(usuarios.getCorreo(), usuarios.getContraseña(), mapToAuthorities(usuarios.getRol()));
+        // 1. Buscamos solo usuarios que tengan estado = 1 (true)
+        Usuarios usuario = usuariosRepo.findByCorreoAndEstadoTrue(correo)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado o cuenta desactivada"));
+
+        // 2. Retornamos el UserDetails de Spring Security
+        // Opcional: Puedes usar el constructor que acepta el booleano 'enabled'
+        return new User(
+                usuario.getCorreo(),
+                usuario.getContraseña(),
+                usuario.isEstado(), // enabled: true si el estado es 1
+                true, // accountNonExpired
+                true, // credentialsNonExpired
+                true, // accountNonLocked
+                mapToAuthorities(usuario.getRol())
+        );
     }
 }

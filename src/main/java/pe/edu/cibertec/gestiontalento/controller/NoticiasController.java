@@ -10,42 +10,40 @@ import pe.edu.cibertec.gestiontalento.service.NoticiasService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/noticias")
+@RequestMapping("/api/noticias")
 public class NoticiasController {
+
     private final NoticiasService noticiasService;
+
     @Autowired
     public NoticiasController(NoticiasService noticiasService) {
         this.noticiasService = noticiasService;
     }
 
     @PostMapping
-    public ResponseEntity<Noticias> crearRol(@RequestBody Noticias noticias) {
-        Noticias nuevoRol = noticiasService.crearNoticia(noticias);
-        return new ResponseEntity<>(nuevoRol, HttpStatus.CREATED);
+    public ResponseEntity<Noticias> crearNoticia(@RequestBody Noticias noticias) {
+        return new ResponseEntity<>(noticiasService.crearNoticia(noticias), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Noticias>> listarRoles() {
-        List<Noticias> noticias = noticiasService.listarNoticia();
-        return new ResponseEntity<>(noticias, HttpStatus.OK);
+    public ResponseEntity<List<Noticias>> listarNoticias() {
+        return ResponseEntity.ok(noticiasService.listarNoticias());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Noticias> obtenerRolPorId(@PathVariable int id) {
-        Noticias noticias = noticiasService.obtenerNoticiaPorId(id);
-        return new ResponseEntity<>(noticias, HttpStatus.OK);
+    public ResponseEntity<Noticias> obtenerNoticiaPorId(@PathVariable int id) {
+        return ResponseEntity.ok(noticiasService.obtenerNoticiaPorId(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Noticias> actualizarRol(@PathVariable int id, @RequestBody Noticias noticias) {
+    public ResponseEntity<Noticias> actualizarNoticia(@PathVariable int id, @RequestBody Noticias noticias) {
         noticias.setIdNoticia(id);
-        Noticias noticiaActualizado = noticiasService.actualizarNoticia(noticias);
-        return new ResponseEntity<>(noticiaActualizado, HttpStatus.OK);
+        return ResponseEntity.ok(noticiasService.actualizarNoticia(noticias));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarRol(@PathVariable int id) {
+    public ResponseEntity<Void> eliminarNoticia(@PathVariable int id) {
         noticiasService.eliminarNoticia(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

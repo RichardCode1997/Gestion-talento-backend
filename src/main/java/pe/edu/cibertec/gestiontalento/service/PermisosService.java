@@ -6,7 +6,6 @@ import pe.edu.cibertec.gestiontalento.model.Permisos;
 import pe.edu.cibertec.gestiontalento.repository.PermisosRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PermisosService {
@@ -27,27 +26,17 @@ public class PermisosService {
     }
 
     public Permisos obtenerPermisoPorId(int id) {
-        Optional<Permisos> permiso = permisosRepository.findById(id);
-        if (permiso.isPresent()) {
-            return permiso.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró el permiso especificado.");
-        }
+        return permisosRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el permiso con ID: " + id));
     }
 
     public Permisos actualizarPermiso(Permisos permiso) {
-        validarExistenciaPermiso(permiso.getIdPermiso());
+        obtenerPermisoPorId(permiso.getIdPermiso()); // Valida existencia
         return permisosRepository.save(permiso);
     }
 
     public void eliminarPermiso(int id) {
-        validarExistenciaPermiso(id);
-        permisosRepository.deleteById(id);
-    }
-
-    private void validarExistenciaPermiso(int id) {
-        if (!permisosRepository.existsById(id)) {
-            throw new IllegalArgumentException("No se encontró el permiso especificado.");
-        }
+        Permisos permiso = obtenerPermisoPorId(id); // Valida existencia
+        permisosRepository.delete(permiso);
     }
 }

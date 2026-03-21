@@ -6,7 +6,6 @@ import pe.edu.cibertec.gestiontalento.model.Faltas;
 import pe.edu.cibertec.gestiontalento.repository.FaltasRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FaltasService {
@@ -26,28 +25,23 @@ public class FaltasService {
         return faltasRepository.findAll();
     }
 
+    // Útil para reportes individuales
+    public List<Faltas> listarPorEmpleado(int idEmpleado) {
+        return faltasRepository.findByEmpleadoIdEmpleado(idEmpleado);
+    }
+
     public Faltas obtenerFaltaPorId(int id) {
-        Optional<Faltas> falta = faltasRepository.findById(id);
-        if (falta.isPresent()) {
-            return falta.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró la falta especificada.");
-        }
+        return faltasRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró la falta con ID: " + id));
     }
 
     public Faltas actualizarFalta(Faltas falta) {
-        validarExistenciaFalta(falta.getIdFalta());
+        obtenerFaltaPorId(falta.getIdFalta());
         return faltasRepository.save(falta);
     }
 
     public void eliminarFalta(int id) {
-        validarExistenciaFalta(id);
-        faltasRepository.deleteById(id);
-    }
-
-    private void validarExistenciaFalta(int id) {
-        if (!faltasRepository.existsById(id)) {
-            throw new IllegalArgumentException("No se encontró la falta especificada.");
-        }
+        Faltas falta = obtenerFaltaPorId(id);
+        faltasRepository.delete(falta);
     }
 }

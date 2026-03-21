@@ -3,49 +3,57 @@ package pe.edu.cibertec.gestiontalento.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtGenerador {
 
-    //Método para crear un token por medio de la authentication
-    public String generarToken(Authentication authentication) {
+    // NUEVO: Metodo para convertir tu String de firma en una Key real
+    private Key getSigningKey() {
+        byte[] keyBytes = ConstantesSeguridad.JWT_FIRMA.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 
+    public String generarToken(Authentication authentication) {
         String correo = authentication.getName();
         Date tiempoActual = new Date();
         Date expiracionToken = new Date(tiempoActual.getTime() + ConstantesSeguridad.JWT_EXPIRATION_TOKEN);
 
-        //Linea para generar el token
-        String token = Jwts.builder() //Construimos un token JWT llamado token
-                .setSubject(correo) //Aca establecemos el nombre de usuario que está iniciando sesión
-                .setIssuedAt(new Date()) //Establecemos la fecha de emisión del token en el momento actual
-                .setExpiration(expiracionToken) //Establecemos la fecha de caducidad del token
-                .signWith(SignatureAlgorithm.HS512, ConstantesSeguridad.JWT_FIRMA) /*Utilizamos este método para firmar
-                nuestro token y de esta manera evitar la manipulación o modificación de este*/
-                .compact(); //Este método finaliza la construcción del token y lo convierte en una cadena compacta
-        return token;
+        // Generar el token
+        return Jwts.builder()
+                .setSubject(correo)
+                .setIssuedAt(new Date())
+                .setExpiration(expiracionToken)
+                // CAMBIO: Ahora se pasa primero la Key y luego el algoritmo
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .compact();
     }
 
-    //Método para extraer un Username apartir de un token
     public String obtenerUsernameDeJwt(String token) {
-        Claims claims = Jwts.parser() // El método parser se utiliza con el fin de analizar el token
-                .setSigningKey(ConstantesSeguridad.JWT_FIRMA)// Establece la clave de firma, que se utiliza para verificar la firma del token
-                .parseClaimsJws(token) //Se utiliza para verificar la firma del token, apartir del String "token"
-                .getBody(); /*Obtenemos el claims(cuerpo) ya verificado del token el cual contendrá la información de
-                nombre de usuario, fecha de expiración y firma del token*/
-        return claims.getSubject(); //Devolvemos el nombre de usuario
+        // CAMBIO: Usamos parserBuilder() en lugar de parser()
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
     }
 
     public Boolean validarToken(String token) {
         try {
-            Jwts.parser().setSigningKey(ConstantesSeguridad.JWT_FIRMA).parseClaimsJws(token);
+            // CAMBIO: Usamos parserBuilder() aquí también
+            Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
-            // No lanzamos excepción, solo devolvemos false.
-            // Así permitimos que Spring decida si la ruta requiere o no token.
             return false;
         }
     }

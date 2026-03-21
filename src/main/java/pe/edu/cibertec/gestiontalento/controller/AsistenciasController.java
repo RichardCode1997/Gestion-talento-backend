@@ -10,7 +10,7 @@ import pe.edu.cibertec.gestiontalento.service.AsistenciasService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/asistencias")
+@RequestMapping("/api/asistencias")
 public class AsistenciasController {
 
     private final AsistenciasService asistenciasService;
@@ -22,38 +22,28 @@ public class AsistenciasController {
 
     @PostMapping
     public ResponseEntity<Asistencias> crearAsistencia(@RequestBody Asistencias asistencia) {
-        Asistencias nuevaAsistencia = asistenciasService.crearAsistencia(asistencia);
-        return new ResponseEntity<>(nuevaAsistencia, HttpStatus.CREATED);
+        return new ResponseEntity<>(asistenciasService.crearAsistencia(asistencia), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Asistencias>> listarAsistencias() {
-        List<Asistencias> asistencias = asistenciasService.listarAsistencias();
-        return new ResponseEntity<>(asistencias, HttpStatus.OK);
+        return ResponseEntity.ok(asistenciasService.listarAsistencias());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Asistencias> obtenerAsistenciaPorId(@PathVariable int id) {
-        Asistencias asistencia = asistenciasService.obtenerAsistenciaPorId(id);
-        return new ResponseEntity<>(asistencia, HttpStatus.OK);
+        return ResponseEntity.ok(asistenciasService.obtenerAsistenciaPorId(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Asistencias> actualizarAsistencia(@PathVariable int id, @RequestBody Asistencias asistencia) {
-        Asistencias asistenciaExistente = asistenciasService.obtenerAsistenciaPorId(id);
-        asistenciaExistente.setEmpleado(asistencia.getEmpleado());
-        asistenciaExistente.setFecha(asistencia.getFecha());
-        asistenciaExistente.setHoraEntrada(asistencia.getHoraEntrada());
-        asistenciaExistente.setHoraSalida(asistencia.getHoraSalida());
-
-        Asistencias asistenciaActualizada = asistenciasService.actualizarAsistencia(asistenciaExistente);
-        return new ResponseEntity<>(asistenciaActualizada, HttpStatus.OK);
+        asistencia.setIdAsistencia(id); // Aseguramos que se actualice el registro correcto
+        return ResponseEntity.ok(asistenciasService.actualizarAsistencia(asistencia));
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarAsistencia(@PathVariable int id) {
         asistenciasService.eliminarAsistencia(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

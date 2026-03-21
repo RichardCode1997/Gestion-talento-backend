@@ -7,13 +7,886 @@
   },
   "item": [
     {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Listar Todos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODM4MDAsImV4cCI6MTc3NDA4NDcwMH0.YhRT77SQ3uPwu8asvYIEpjrgZ8PbsnhZRFCNlSXqej9437O83-M1VwxXLp8-2zhkg3Fuzzd5qn6ibM698WVL6A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Activos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODE2OTIsImV4cCI6MTc3NDA4MjU5Mn0.MEjkP7U8zpYfyJWDG3b8rvS-ImisEwU5iy8IYPwUAMKaahQC6mAQKWBBxS20puxm6yvaKyfw48DiCYLkcaSYmA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/activos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "activos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Inactivos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODE2OTIsImV4cCI6MTc3NDA4MjU5Mn0.MEjkP7U8zpYfyJWDG3b8rvS-ImisEwU5iy8IYPwUAMKaahQC6mAQKWBBxS20puxm6yvaKyfw48DiCYLkcaSYmA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/inactivos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "inactivos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por correo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODE2OTIsImV4cCI6MTc3NDA4MjU5Mn0.MEjkP7U8zpYfyJWDG3b8rvS-ImisEwU5iy8IYPwUAMKaahQC6mAQKWBBxS20puxm6yvaKyfw48DiCYLkcaSYmA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/buscar?correo=ssericksson@gmail.com",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "buscar"
+              ],
+              "query": [
+                {
+                  "key": "correo",
+                  "value": "ssericksson@gmail.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODM4MDAsImV4cCI6MTc3NDA4NDcwMH0.YhRT77SQ3uPwu8asvYIEpjrgZ8PbsnhZRFCNlSXqej9437O83-M1VwxXLp8-2zhkg3Fuzzd5qn6ibM698WVL6A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"correo\": \"manolo@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"rol\": {\r\n        \"idRol\": 3\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODQyNjgsImV4cCI6MTc3NDA4NTE2OH0.qdacC5pPXYQnsxLkLS_wCdL2FH1qdL4K1Pi4Ompry0bX4vZ-yajXdgE-lLECbctU_5nvmJVWO3DiwHAaYTfBIg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"correo\": \"ssericksson@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"rol\": {\r\n        \"idRol\": 4\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estado Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNzc0MDUsImV4cCI6MTc3NDA3ODMwNX0.VZb3b3Y-f2fLqGWMrxP6s_NhdgQNhouY6uU0BoubFJkRzMm99aLeS4l85jPjFPdyfQCi7Xdcw9JtmOyoRJKhBA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/3/activar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "3",
+                "activar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNzcyNTQsImV4cCI6MTc3NDA3ODE1NH0.mswokMxwoENRZpFtf_Bw3STGu2Io_SRN80ZGG1jpR_XTtD3CPiWPUM_rPsAOwYsLnNycEgv3YOrry7toZy9vBA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/usuarios/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "usuarios",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer"
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empleados",
+      "item": [
+        {
+          "name": "Listar Todos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODQyNjgsImV4cCI6MTc3NDA4NTE2OH0.qdacC5pPXYQnsxLkLS_wCdL2FH1qdL4K1Pi4Ompry0bX4vZ-yajXdgE-lLECbctU_5nvmJVWO3DiwHAaYTfBIg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/empleados",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Activos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODIzNDcsImV4cCI6MTc3NDA4MzI0N30.fbhzoslALASvFBjMSVq6mkolu_aXW_34RGMTyCe5D3FYiH_Y5STr8lFYUGcrUyJgeiGXuQoJ9sA04p8AWCKkyw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/empleados/activos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados",
+                "activos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Inactivos",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODIzNDcsImV4cCI6MTc3NDA4MzI0N30.fbhzoslALASvFBjMSVq6mkolu_aXW_34RGMTyCe5D3FYiH_Y5STr8lFYUGcrUyJgeiGXuQoJ9sA04p8AWCKkyw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/empleados/inactivos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados",
+                "inactivos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por DNI",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODIzNDcsImV4cCI6MTc3NDA4MzI0N30.fbhzoslALASvFBjMSVq6mkolu_aXW_34RGMTyCe5D3FYiH_Y5STr8lFYUGcrUyJgeiGXuQoJ9sA04p8AWCKkyw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/empleados/dni/12345678",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados",
+                "dni",
+                "12345678"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar Empleado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODUzOTksImV4cCI6MTc3NDA4NjI5OX0.AmemIMEAm-bxgfa6Dg-9ZtSMJsm8ZDU83-ouR-9DOrfWlCBq_fvN4t9eVpA8mqErkU1J7JClOHAoi_LxUmzqDw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nombre\": \"Manolo\",\r\n    \"apellido\": \"Rojas\",\r\n    \"dni\": \"12121212\",\r\n    \"celular\": \"123123123\",\r\n    \"direccion\": \"Av. Principal 123\",\r\n    \"usuario\": {\r\n        \"idUsuario\": 6\r\n    },\r\n    \"horario\": {\r\n        \"idHorario\": 1\r\n    },\r\n    \"departamento\": {\r\n        \"idDepartamento\": 3\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/empleados",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Empleado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODQyNjgsImV4cCI6MTc3NDA4NTE2OH0.qdacC5pPXYQnsxLkLS_wCdL2FH1qdL4K1Pi4Ompry0bX4vZ-yajXdgE-lLECbctU_5nvmJVWO3DiwHAaYTfBIg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nombre\": \"Richard\",\r\n    \"apellido\": \"Quispe\",\r\n    \"dni\": \"12345678\",\r\n    \"celular\": \"123456789\",\r\n    \"direccion\": \"Calle abc mz abc lt.abc\",\r\n    \"usuario\": { \"idUsuario\": 1 },\r\n    \"horario\": { \"idHorario\": 1 },\r\n    \"departamento\": { \"idDepartamento\": 1 }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/empleados/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estado Empleado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODAzNDAsImV4cCI6MTc3NDA4MTI0MH0.Xd_IInBNOLWTd7ii7rd57pd_iHLQdOFocVrGkUXS8vclsDg9s-FdjffBI_Fz_kVtnZOauC3xL3LOv_jScD8GIg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/empleados/2/activar",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados",
+                "2",
+                "activar"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Empleado",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODUwMzIsImV4cCI6MTc3NDA4NTkzMn0.-TRKqbNIvLHXnk6qAvBad0D5k4qBO4uQ4YjU_ZRQPYXA-lDerqodBBftbDKsAlUQFlw3XrlN-Mi9kUsSeTlnnA",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/empleados/11",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "empleados",
+                "11"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Horarios",
+      "item": [
+        {
+          "name": "Listar Horarios",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDY3MzYsImV4cCI6MTc3NDA0NzYzNn0.2TtpjVVCxTQ7w3Vsm0mV493KiHYx96INbsfqD8UkeJ0izCN3c0x5hPeAsBnP6gqP25IWKtSWo4-yz_Ar5z9Ifg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/horarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "horarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar Horario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDY3MzYsImV4cCI6MTc3NDA0NzYzNn0.2TtpjVVCxTQ7w3Vsm0mV493KiHYx96INbsfqD8UkeJ0izCN3c0x5hPeAsBnP6gqP25IWKtSWo4-yz_Ar5z9Ifg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"hora_entrada\": \"20:00\",\r\n  \"hora_salida\": \"04:00\",\r\n  \"nombre\": \"Horario Temporal\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/horarios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "horarios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Horario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDY3MzYsImV4cCI6MTc3NDA0NzYzNn0.2TtpjVVCxTQ7w3Vsm0mV493KiHYx96INbsfqD8UkeJ0izCN3c0x5hPeAsBnP6gqP25IWKtSWo4-yz_Ar5z9Ifg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"hora_entrada\": \"00:00\",\r\n  \"hora_salida\": \"08:00\",\r\n  \"nombre\": \"Horario Temporal\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/horarios/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "horarios",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Horario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDY3MzYsImV4cCI6MTc3NDA0NzYzNn0.2TtpjVVCxTQ7w3Vsm0mV493KiHYx96INbsfqD8UkeJ0izCN3c0x5hPeAsBnP6gqP25IWKtSWo4-yz_Ar5z9Ifg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/horarios/5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "horarios",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Noticias",
+      "item": [
+        {
+          "name": "Listar Noticias",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDc2NTgsImV4cCI6MTc3NDA0ODU1OH0.tfcpN1yu5oNiHm7d8pCOb6FXlbGaT7qeyjI0tJOUYiOI1XAPYOxJyKGzIaYH9U9eafHc8c7A6HBvICe9wCK4Tw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/noticias",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "noticias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar Noticia",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDY3MzYsImV4cCI6MTc3NDA0NzYzNn0.2TtpjVVCxTQ7w3Vsm0mV493KiHYx96INbsfqD8UkeJ0izCN3c0x5hPeAsBnP6gqP25IWKtSWo4-yz_Ar5z9Ifg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"titulo\": \"Examen medico\",\r\n  \"detalle\": \"Se considerara el proximo miércoles primero de mayo como feriado y se suspende el horario habitual de trabajo\",\r\n  \"estado\": \"Activo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/noticias",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "noticias"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Noticia",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDc2NTgsImV4cCI6MTc3NDA0ODU1OH0.tfcpN1yu5oNiHm7d8pCOb6FXlbGaT7qeyjI0tJOUYiOI1XAPYOxJyKGzIaYH9U9eafHc8c7A6HBvICe9wCK4Tw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"titulo\": \"Examen medico\",\r\n  \"detalle\": \"Se considerara el proximo miércoles primero de mayo como feriado y se suspende el horario habitual de trabajo\",\r\n  \"estado\": \"Activo\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/noticias/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "noticias",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Noticia",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDc2NTgsImV4cCI6MTc3NDA0ODU1OH0.tfcpN1yu5oNiHm7d8pCOb6FXlbGaT7qeyjI0tJOUYiOI1XAPYOxJyKGzIaYH9U9eafHc8c7A6HBvICe9wCK4Tw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/noticias/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "noticias",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Login",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"correo\":\"ssericksson@gmail.com\",\r\n    \"contraseña\":\"123\"\r\n}",
+          "raw": "{\r\n    \"correo\":\"ssericksson@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -37,423 +910,6 @@
       "response": []
     },
     {
-      "name": "Listar Usuarios",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/usuarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "usuarios"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Registrar Usuario",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"nombre\": \"Manolo\",\r\n    \"apellido\": \"Rojas\",\r\n    \"dni\": \"12345678\",\r\n    \"correo\": \"Manolo@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"direccion\": \"mz. abc lt. abc calle abc\",\r\n    \"celular\": \"123456789\",\r\n    \"rol\": {\r\n            \"idRol\": 4,\r\n            \"nombreRol\": \"SISTEMAS\"\r\n        }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/usuarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "usuarios"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Actualizar Usuario",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"nombre\": \"Jorge\",\r\n    \"apellido\": \"Rodriguez\",\r\n    \"dni\": \"12345678\",\r\n    \"correo\": \"jorge@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"direccion\": \"mz. abc lt. abc calle abc\",\r\n    \"celular\": \"123456789\",\r\n    \"rol\": {\r\n            \"idRol\": 3,\r\n            \"nombreRol\": \"ADMINISTRADOR\"\r\n        }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/usuarios/6",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "usuarios",
-            "6"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Eliminar Usuario",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjgzODgsImV4cCI6MTc3MjA2OTI4OH0.PBOLEs1TkXPEmjXJGbLj_YzHy_Bt5tM47QU1sUMKqarMdNxuk81J1lIwNYbFEvvn1Io0VpcVixDMGbnbycpSkw",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/usuarios/9",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "usuarios",
-            "9"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Listar Horarios",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/horarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "horarios"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Registrar Horario",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"hora_entrada\": \"08:00\",\r\n  \"hora_salida\": \"18:00\",\r\n  \"nombre\": \"Horario Diurno\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/horarios",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "horarios"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Actualizar Horario",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"hora_entrada\": \"02:00\",\r\n  \"hora_salida\": \"10:00\",\r\n  \"nombre\": \"Especial\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/horarios/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "horarios",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Eliminar Horario",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjYXJsb3NAZ21haWwuY29tIiwiaWF0IjoxNjg3OTgxNzE3LCJleHAiOjE2ODc5ODI2MTd9.5Z520xtV61z9YClIvEVrzmneiqEIulFM1Xij_hZth6MrGF2KzEXbNNUGWNkvZKcTzvLzY9ecvoL1HUgdvj603A",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/horarios/7",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "horarios",
-            "7"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Listar Noticias",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/noticias",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "noticias"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Registrar Noticias",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE2ODgwMDQwMjcsImV4cCI6MTY4ODAwNDkyN30.LE80H-FLJLU0HNG2Un9u5oEyMZPKk_pJKjgb8n5yqSb6BF5Hfny66E3KjgjowgU8fx8aUqgegeQEMTroyqG-iA",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"titulo\": \"Examen medico\",\r\n  \"detalle\": \"Se considerara el proximo miércoles primero de mayo como feriado y se suspende el horario habitual de trabajo\",\r\n  \"estado\": \"Activa\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/noticias",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "noticias"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Actualizar Noticias",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImlhdCI6MTY5MjIyOTExNSwiZXhwIjoxNjkyMjMwMDE1fQ.X0J55k63HjtqFIUjYfX6GT-6PwiW62_osRFWxa_dfdA3GDlyproegEdshHFsTxG_yYnMc_eGd6bu7PV103OcdQ",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"titulo\": \"FERIADO LARGO\",\r\n  \"detalle\": \"Por semana santa tendremos libre desde el miercoles 25 hasta el Lunes 29\",\r\n  \"estado\": \"Activo\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/noticias/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "noticias",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Eliminar Noticias",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE2ODgwMDQwMjcsImV4cCI6MTY4ODAwNDkyN30.LE80H-FLJLU0HNG2Un9u5oEyMZPKk_pJKjgb8n5yqSb6BF5Hfny66E3KjgjowgU8fx8aUqgegeQEMTroyqG-iA",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "DELETE",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/noticias/4",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "noticias",
-            "4"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Listar Empleados",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/empleados",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "empleados"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "Listar Asistencias",
       "request": {
         "auth": {
@@ -461,7 +917,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDc2NTgsImV4cCI6MTc3NDA0ODU1OH0.tfcpN1yu5oNiHm7d8pCOb6FXlbGaT7qeyjI0tJOUYiOI1XAPYOxJyKGzIaYH9U9eafHc8c7A6HBvICe9wCK4Tw",
               "type": "string"
             }
           ]
@@ -469,13 +925,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/asistencias",
+          "raw": "http://localhost:8080/api/asistencias",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
+            "api",
             "asistencias"
           ]
         }
@@ -490,7 +947,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDc2NTgsImV4cCI6MTc3NDA0ODU1OH0.tfcpN1yu5oNiHm7d8pCOb6FXlbGaT7qeyjI0tJOUYiOI1XAPYOxJyKGzIaYH9U9eafHc8c7A6HBvICe9wCK4Tw",
               "type": "string"
             }
           ]
@@ -498,13 +955,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/faltas",
+          "raw": "http://localhost:8080/api/faltas",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
+            "api",
             "faltas"
           ]
         }
@@ -519,7 +977,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDc2NTgsImV4cCI6MTc3NDA0ODU1OH0.tfcpN1yu5oNiHm7d8pCOb6FXlbGaT7qeyjI0tJOUYiOI1XAPYOxJyKGzIaYH9U9eafHc8c7A6HBvICe9wCK4Tw",
               "type": "string"
             }
           ]
@@ -527,13 +985,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/permisos",
+          "raw": "http://localhost:8080/api/permisos",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
+            "api",
             "permisos"
           ]
         }
@@ -548,7 +1007,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzIwNjUzMzYsImV4cCI6MTc3MjA2NjIzNn0.ftoGFZqECLaQv-6INf7zoJc4DudnOFy7PLXPVswzRrXGNKPiQoezAdmc-mEyR2hVSIwAl_LNy5rj4FHykaVtMg",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDc2NTgsImV4cCI6MTc3NDA0ODU1OH0.tfcpN1yu5oNiHm7d8pCOb6FXlbGaT7qeyjI0tJOUYiOI1XAPYOxJyKGzIaYH9U9eafHc8c7A6HBvICe9wCK4Tw",
               "type": "string"
             }
           ]
@@ -556,13 +1015,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/tardanzas",
+          "raw": "http://localhost:8080/api/tardanzas",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "8080",
           "path": [
+            "api",
             "tardanzas"
           ]
         }

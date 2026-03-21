@@ -2,27 +2,48 @@ package pe.edu.cibertec.gestiontalento.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pe.edu.cibertec.gestiontalento.model.Roles;
 import pe.edu.cibertec.gestiontalento.model.Usuarios;
+import pe.edu.cibertec.gestiontalento.repository.RolesRepository;
 import pe.edu.cibertec.gestiontalento.repository.UsuariosRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuariosService {
 
     private final UsuariosRepository usuariosRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RolesRepository rolesRepository;
 
     @Autowired
-    public UsuariosService(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder) {
+    public UsuariosService(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder, RolesRepository rolesRepository) {
         this.usuariosRepository = usuariosRepository;
         this.passwordEncoder = passwordEncoder;
+        this.rolesRepository = rolesRepository;
     }
 
     public Usuarios crearUsuario(Usuarios usuario) {
-        // Encriptamos la contraseña antes de guardarla
+        // 1. Validación de duplicado por correo
+        if (usuariosRepository.findByCorreo(usuario.getCorreo()).isPresent()) {
+            throw new IllegalArgumentException("Error: El correo '" + usuario.getCorreo() + "' ya está registrado en el sistema.");
+        }
+
+        // 2. Validación de seguridad para evitar el error 500
+        if (usuario.getContraseña() == null || usuario.getContraseña().isEmpty()) {
+            throw new IllegalArgumentException("La contraseña es obligatoria en el JSON");
+        }
+
+        // 3. Buscamos el rol completo en la DB usando el ID que viene en el JSON
+        Roles rolCompleto = rolesRepository.findById(usuario.getRol().getIdRol())
+                .orElseThrow(() -> new IllegalArgumentException("El rol especificado no existe"));
+
+        // 4. Se lo asignamos al usuario (ahora el objeto ya tiene el nombre del rol)
+        usuario.setRol(rolCompleto);
+
+        usuario.setEstado(true);
+
         usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
         return usuariosRepository.save(usuario);
     }
@@ -31,40 +52,69 @@ public class UsuariosService {
         return usuariosRepository.findAll();
     }
 
+    public List<Usuarios> listarUsuariosActivos() {
+        return usuariosRepository.findByEstadoTrue();
+    }
+
+    public List<Usuarios> listarUsuariosInactivos() {
+        return usuariosRepository.findByEstadoFalse();
+    }
+
+    public Usuarios obtenerPorCorreo(String correo) {
+        return usuariosRepository.findByCorreo(correo)
+                .orElseThrow(() -> new IllegalArgumentException("No existe un usuario con el correo: " + correo));
+    }
+
     public Usuarios obtenerUsuarioPorId(int id) {
-        Optional<Usuarios> usuarioOptional = usuariosRepository.findById(id);
-        if (usuarioOptional.isPresent()) {
-            return usuarioOptional.get();
-        } else {
-            throw new IllegalArgumentException("No se encontró el usuario especificado.");
-        }
+        return usuariosRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No se encontró el usuario con ID: " + id));
     }
 
     public Usuarios modificarUsuario(int id, Usuarios usuarioModificado) {
-        Optional<Usuarios> usuarioOptional = usuariosRepository.findById(id);
-        if (usuarioOptional.isPresent()) {
-            Usuarios usuarioExistente = usuarioOptional.get();
-            // Actualizar los campos necesarios del usuario existente con los valores del usuario modificado
-            usuarioExistente.setNombre(usuarioModificado.getNombre());
-            usuarioExistente.setApellido(usuarioModificado.getApellido());
-            usuarioExistente.setDni(usuarioModificado.getDni());
-            usuarioExistente.setCorreo(usuarioModificado.getCorreo());
-            usuarioExistente.setRol(usuarioModificado.getRol());
-            if (usuarioModificado.getContraseña() != null && !usuarioModificado.getContraseña().isEmpty()) {
-                usuarioExistente.setContraseña(passwordEncoder.encode(usuarioModificado.getContraseña()));
+        Usuarios usuarioExistente = obtenerUsuarioPorId(id);
+
+        // 1. Actualizar el correo
+        // Solo validamos si el correo que envían es DIFERENTE al que ya tiene
+        if (!usuarioExistente.getCorreo().equalsIgnoreCase(usuarioModificado.getCorreo())) {
+            if (usuariosRepository.findByCorreo(usuarioModificado.getCorreo()).isPresent()) {
+                throw new IllegalArgumentException("No se puede actualizar: El correo '" + usuarioModificado.getCorreo() + "' ya pertenece a otro usuario.");
             }
-            return usuariosRepository.save(usuarioExistente);
-        } else {
-            throw new IllegalArgumentException("No se encontró el usuario especificado.");
+            usuarioExistente.setCorreo(usuarioModificado.getCorreo());
         }
+
+        // 2. BUSCAR EL ROL COMPLETO (Para evitar el null en el JSON de respuesta)
+        if (usuarioModificado.getRol() != null) {
+            Roles rolCompleto = rolesRepository.findById(usuarioModificado.getRol().getIdRol())
+                    .orElseThrow(() -> new IllegalArgumentException("El rol especificado no existe"));
+            usuarioExistente.setRol(rolCompleto);
+        }
+
+        // 3. Actualizar contraseña solo si se envía una nueva
+        if (usuarioModificado.getContraseña() != null && !usuarioModificado.getContraseña().isEmpty()) {
+            usuarioExistente.setContraseña(passwordEncoder.encode(usuarioModificado.getContraseña()));
+        }
+
+        return usuariosRepository.save(usuarioExistente);
+    }
+
+    public void desactivarUsuario(int id) {
+        Usuarios usuario = usuariosRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        usuario.setEstado(false);
+        usuariosRepository.save(usuario);
+    }
+
+    public void activarUsuario(int id) {
+        Usuarios usuario = usuariosRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        usuario.setEstado(true);
+        usuariosRepository.save(usuario);
     }
 
     public void eliminarUsuario(int id) {
-        Optional<Usuarios> usuarioOptional = usuariosRepository.findById(id);
-        if (usuarioOptional.isPresent()) {
-            usuariosRepository.delete(usuarioOptional.get());
-        } else {
-            throw new IllegalArgumentException("No se encontró el usuario especificado.");
-        }
+        Usuarios usuario = obtenerUsuarioPorId(id);
+        usuariosRepository.delete(usuario);
     }
 }

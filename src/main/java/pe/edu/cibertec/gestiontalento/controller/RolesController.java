@@ -11,7 +11,7 @@ import pe.edu.cibertec.gestiontalento.service.RolesService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/roles")
+@RequestMapping("/api/roles")
 public class RolesController {
 
     private final RolesService rolesService;
@@ -23,32 +23,34 @@ public class RolesController {
 
     @PostMapping
     public ResponseEntity<Roles> crearRol(@RequestBody Roles rol) {
-        Roles nuevoRol = rolesService.crearRol(rol);
-        return new ResponseEntity<>(nuevoRol, HttpStatus.CREATED);
+        return new ResponseEntity<>(rolesService.crearRol(rol), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Roles>> listarRoles() {
-        List<Roles> roles = rolesService.listarRoles();
-        return new ResponseEntity<>(roles, HttpStatus.OK);
+        return ResponseEntity.ok(rolesService.listarRoles());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Roles> obtenerRolPorId(@PathVariable int id) {
-        Roles rol = rolesService.obtenerRolPorId(id);
-        return new ResponseEntity<>(rol, HttpStatus.OK);
+        return ResponseEntity.ok(rolesService.obtenerRolPorId(id));
+    }
+
+    // Nuevo: Buscar por nombre de rol (ej: ROLE_ADMIN)
+    @GetMapping("/nombre/{nombreRol}")
+    public ResponseEntity<Roles> obtenerRolPorNombre(@PathVariable String nombreRol) {
+        return ResponseEntity.ok(rolesService.obtenerRolPorNombre(nombreRol));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Roles> actualizarRol(@PathVariable int id, @RequestBody Roles rol) {
         rol.setIdRol(id);
-        Roles rolActualizado = rolesService.actualizarRol(rol);
-        return new ResponseEntity<>(rolActualizado, HttpStatus.OK);
+        return ResponseEntity.ok(rolesService.actualizarRol(rol));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarRol(@PathVariable int id) {
         rolesService.eliminarRol(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

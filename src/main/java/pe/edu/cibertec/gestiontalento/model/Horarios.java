@@ -1,23 +1,25 @@
 package pe.edu.cibertec.gestiontalento.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Horarios")
+@Table(name = "horarios")
 public class Horarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Horario")
+    @Column(name = "id_horario")
     private int idHorario;
 
-    @Column(name = "Nombre")
     private String nombre;
 
-    @Column(name = "Hora_entrada")
+    @Column(name = "hora_entrada")
+    @JsonProperty("hora_entrada")
     private String horaEntrada;
 
-    @Column(name = "Hora_salida")
+    @Column(name = "hora_salida")
+    @JsonProperty("hora_salida")
     private String horaSalida;
 }

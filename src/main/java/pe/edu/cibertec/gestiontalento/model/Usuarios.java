@@ -1,43 +1,32 @@
 package pe.edu.cibertec.gestiontalento.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 @Data
 public class Usuarios {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Usuario")
+    @Column(name = "id_usuario")
     private int idUsuario;
 
-    @Column(name = "Nombre")
-    private String nombre;
+    @Column(name = "estado")
+    private boolean estado = true; // 1 = Activo, 0 = Inactivo
 
-    @Column(name = "Apellido")
-    private String apellido;
-
-    @Column(name = "Dni")
-    private String dni;
-
-    @Column(name = "Correo")
+    @Column(name = "correo")
     private String correo;
 
-    @Column(name = "Contraseña")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "contraseña")
     private String contraseña;
 
-    @Column(name = "Direccion")
-    private String direccion;
-
-    @Column(name = "Celular")
-    private String celular;
-
     @ManyToOne
-    @JoinColumn(name = "ID_Rol")
+    @JoinColumn(name = "id_rol")
     private Roles rol;
 
-    // Constructor, getters, and setters
 }

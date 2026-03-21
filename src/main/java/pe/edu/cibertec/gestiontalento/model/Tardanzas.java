@@ -2,22 +2,22 @@ package pe.edu.cibertec.gestiontalento.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 @Data
 @Entity
-@Table(name = "Tardanzas")
+@Table(name = "tardanzas")
 public class Tardanzas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Tardanza")
+    @Column(name = "id_tardanza")
     private int idTardanza;
 
     @ManyToOne
-    @JoinColumn(name = "ID_Empleado")
+    @JoinColumn(name = "id_empleado")
     private Empleados empleado;
 
-    @Column(name = "Fecha")
     private String fecha;
 
-    @Column(name = "Hora_tardanza")
+    @Column(name = "hora_tardanza")
     private String horaTardanza;
 }
