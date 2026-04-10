@@ -17,7 +17,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODM4MDAsImV4cCI6MTc3NDA4NDcwMH0.YhRT77SQ3uPwu8asvYIEpjrgZ8PbsnhZRFCNlSXqej9437O83-M1VwxXLp8-2zhkg3Fuzzd5qn6ibM698WVL6A",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTM2NTksImV4cCI6MTc3NTc5NDU1OX0.5xKpvXone-ThsL1bs9Uj9VToXUy6FICFfVSkS0RaLKNK0LLqIb-z73-FULbObgRs4_jBbkuvdy_vPXG2hvPrHg",
                   "type": "string"
                 }
               ]
@@ -47,7 +47,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODE2OTIsImV4cCI6MTc3NDA4MjU5Mn0.MEjkP7U8zpYfyJWDG3b8rvS-ImisEwU5iy8IYPwUAMKaahQC6mAQKWBBxS20puxm6yvaKyfw48DiCYLkcaSYmA",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTM2NTksImV4cCI6MTc3NTc5NDU1OX0.5xKpvXone-ThsL1bs9Uj9VToXUy6FICFfVSkS0RaLKNK0LLqIb-z73-FULbObgRs4_jBbkuvdy_vPXG2hvPrHg",
                   "type": "string"
                 }
               ]
@@ -320,7 +320,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODQyNjgsImV4cCI6MTc3NDA4NTE2OH0.qdacC5pPXYQnsxLkLS_wCdL2FH1qdL4K1Pi4Ompry0bX4vZ-yajXdgE-lLECbctU_5nvmJVWO3DiwHAaYTfBIg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTMwMzgsImV4cCI6MTc3NTc5MzkzOH0.QUdXs17k6_8lNhO-odNNY0NscIpcPcCAUXJl06HEjyfzoAlcHeWOjXhypzndbFuv4LFSdLzVzbl4mgtIOzwIaA",
                   "type": "string"
                 }
               ]
@@ -600,7 +600,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNDY3MzYsImV4cCI6MTc3NDA0NzYzNn0.2TtpjVVCxTQ7w3Vsm0mV493KiHYx96INbsfqD8UkeJ0izCN3c0x5hPeAsBnP6gqP25IWKtSWo4-yz_Ar5z9Ifg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTMwMzgsImV4cCI6MTc3NTc5MzkzOH0.QUdXs17k6_8lNhO-odNNY0NscIpcPcCAUXJl06HEjyfzoAlcHeWOjXhypzndbFuv4LFSdLzVzbl4mgtIOzwIaA",
                   "type": "string"
                 }
               ]
@@ -1028,6 +1028,93 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Listar Departamentos",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTM2NTksImV4cCI6MTc3NTc5NDU1OX0.5xKpvXone-ThsL1bs9Uj9VToXUy6FICFfVSkS0RaLKNK0LLqIb-z73-FULbObgRs4_jBbkuvdy_vPXG2hvPrHg",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/departamentos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "departamentos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Roles",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTQ1NDQsImV4cCI6MTc3NTc5NTQ0NH0.o1xxSmm_-TKUkSf3HEoq2cwBgnmmpYvxRhNgGX6RVdnSwBO9iPN4SW1jpR9SP-aMdIy1f9NKRQzeYx-NW7HH1w",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/roles",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "roles"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
     }
   ]
 }
