@@ -80,10 +80,21 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Nota: En producción, cambia "*" por el dominio de tu frontend
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+        // BUENA PRÁCTICA: En lugar de "*", usa el puerto exacto de tu Vue (Vite suele ser 5173)
+        // Esto evita ataques de Cross-Site Request Forgery (CSRF)
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
+
+        // PERMITIR CREDENCIALES: Si usas JWT en Cookies o Headers específicos
+        configuration.setAllowCredentials(true);
+
+        // EXPOSE HEADERS: Si el backend genera el token y lo manda en el Header,
+        // Vue necesita permiso explícito para leerlo.
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
