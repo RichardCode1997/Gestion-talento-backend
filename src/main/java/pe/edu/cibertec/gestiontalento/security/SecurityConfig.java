@@ -85,7 +85,7 @@ public class SecurityConfig {
         // Esto evita ataques de Cross-Site Request Forgery (CSRF)
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
 
         // PERMITIR CREDENCIALES: Si usas JWT en Cookies o Headers específicos

@@ -37,7 +37,12 @@ public class RestControllerAuth {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerador.generarToken(authentication);
+        String correo = authentication.getName();
+        String rol    = authentication.getAuthorities()
+                .iterator().next()
+                .getAuthority()
+                .replace("ROLE_", "");
 
-        return ResponseEntity.ok(new DtoAuthRespuesta(token));
+        return ResponseEntity.ok(new DtoAuthRespuesta(token, correo, rol));
     }
 }
