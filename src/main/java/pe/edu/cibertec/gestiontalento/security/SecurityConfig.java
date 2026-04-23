@@ -86,9 +86,7 @@ public class SecurityConfig {
 
         // BUENA PRÁCTICA: En lugar de "*", usa el puerto exacto de tu Vue (Vite suele ser 5173)
         // Esto evita ataques de Cross-Site Request Forgery (CSRF)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173",
-                "https://gestion-talento-frontend-swart.vercel.app"));
-
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));

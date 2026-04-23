@@ -17,7 +17,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQyNDIsImV4cCI6MTc3NjkyNTE0Mn0.SnAmTytIpyiH7Ajov9gghj4QuMvncy5LssncCGYb3Wmvd0mEcMGAVH4U7Ep29OyzHpID0r1CGvGKzPOziXVShg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTM2NTksImV4cCI6MTc3NTc5NDU1OX0.5xKpvXone-ThsL1bs9Uj9VToXUy6FICFfVSkS0RaLKNK0LLqIb-z73-FULbObgRs4_jBbkuvdy_vPXG2hvPrHg",
                   "type": "string"
                 }
               ]
@@ -47,7 +47,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTM2NTksImV4cCI6MTc3NTc5NDU1OX0.5xKpvXone-ThsL1bs9Uj9VToXUy6FICFfVSkS0RaLKNK0LLqIb-z73-FULbObgRs4_jBbkuvdy_vPXG2hvPrHg",
                   "type": "string"
                 }
               ]
@@ -78,7 +78,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODE2OTIsImV4cCI6MTc3NDA4MjU5Mn0.MEjkP7U8zpYfyJWDG3b8rvS-ImisEwU5iy8IYPwUAMKaahQC6mAQKWBBxS20puxm6yvaKyfw48DiCYLkcaSYmA",
                   "type": "string"
                 }
               ]
@@ -133,37 +133,6 @@
                   "key": "correo",
                   "value": "ssericksson@gmail.com"
                 }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Buscar por ID",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjM0MzYsImV4cCI6MTc3NjkyNDMzNn0.mNUwrLpv8VEP9_nuaoIoEEOJJfYhbH1vItIqwSTLHkyBJeR08XIyIUllDp5q4lYwNg78xXJ7cNAG6F63GzfLzg",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/usuarios/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "usuarios",
-                "1"
               ]
             }
           },
@@ -256,7 +225,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQ0ODcsImV4cCI6MTc3NjkyNTM4N30.JDeJ3J5fsOen36CMUWC96HhhfOYa3e7zlQ3Gzi8KjKGvrDxugob1N6ryusGlJPyU1euaaQAsRQrNdxF7IOJuGw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNzc0MDUsImV4cCI6MTc3NDA3ODMwNX0.VZb3b3Y-f2fLqGWMrxP6s_NhdgQNhouY6uU0BoubFJkRzMm99aLeS4l85jPjFPdyfQCi7Xdcw9JtmOyoRJKhBA",
                   "type": "string"
                 }
               ]
@@ -264,7 +233,7 @@
             "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/usuarios/4/activar",
+              "raw": "http://localhost:8080/api/usuarios/3/activar",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -273,7 +242,7 @@
               "path": [
                 "api",
                 "usuarios",
-                "4",
+                "3",
                 "activar"
               ]
             }
@@ -351,7 +320,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQ0ODcsImV4cCI6MTc3NjkyNTM4N30.JDeJ3J5fsOen36CMUWC96HhhfOYa3e7zlQ3Gzi8KjKGvrDxugob1N6ryusGlJPyU1euaaQAsRQrNdxF7IOJuGw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTMwMzgsImV4cCI6MTc3NTc5MzkzOH0.QUdXs17k6_8lNhO-odNNY0NscIpcPcCAUXJl06HEjyfzoAlcHeWOjXhypzndbFuv4LFSdLzVzbl4mgtIOzwIaA",
                   "type": "string"
                 }
               ]
@@ -381,7 +350,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjM0MzYsImV4cCI6MTc3NjkyNDMzNn0.mNUwrLpv8VEP9_nuaoIoEEOJJfYhbH1vItIqwSTLHkyBJeR08XIyIUllDp5q4lYwNg78xXJ7cNAG6F63GzfLzg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODIzNDcsImV4cCI6MTc3NDA4MzI0N30.fbhzoslALASvFBjMSVq6mkolu_aXW_34RGMTyCe5D3FYiH_Y5STr8lFYUGcrUyJgeiGXuQoJ9sA04p8AWCKkyw",
                   "type": "string"
                 }
               ]
@@ -389,7 +358,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados/filtrar?estado=Activo",
+              "raw": "http://localhost:8080/api/empleados/activos",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -398,13 +367,7 @@
               "path": [
                 "api",
                 "empleados",
-                "filtrar"
-              ],
-              "query": [
-                {
-                  "key": "estado",
-                  "value": "Activo"
-                }
+                "activos"
               ]
             }
           },
@@ -418,7 +381,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODIzNDcsImV4cCI6MTc3NDA4MzI0N30.fbhzoslALASvFBjMSVq6mkolu_aXW_34RGMTyCe5D3FYiH_Y5STr8lFYUGcrUyJgeiGXuQoJ9sA04p8AWCKkyw",
                   "type": "string"
                 }
               ]
@@ -426,7 +389,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados/filtrar?estado=Inactivo",
+              "raw": "http://localhost:8080/api/empleados/inactivos",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -435,81 +398,7 @@
               "path": [
                 "api",
                 "empleados",
-                "filtrar"
-              ],
-              "query": [
-                {
-                  "key": "estado",
-                  "value": "Inactivo"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Listar Cesados",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/empleados/filtrar?estado=Cesado",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "empleados",
-                "filtrar"
-              ],
-              "query": [
-                {
-                  "key": "estado",
-                  "value": "Cesado"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Listar Empleados Sin Usuario",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQ0ODcsImV4cCI6MTc3NjkyNTM4N30.JDeJ3J5fsOen36CMUWC96HhhfOYa3e7zlQ3Gzi8KjKGvrDxugob1N6ryusGlJPyU1euaaQAsRQrNdxF7IOJuGw",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/empleados/sin-usuario",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "empleados",
-                "sin-usuario"
+                "inactivos"
               ]
             }
           },
@@ -542,37 +431,6 @@
                 "empleados",
                 "dni",
                 "12345678"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Buscar por ID",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjM0MzYsImV4cCI6MTc3NjkyNDMzNn0.mNUwrLpv8VEP9_nuaoIoEEOJJfYhbH1vItIqwSTLHkyBJeR08XIyIUllDp5q4lYwNg78xXJ7cNAG6F63GzfLzg",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/api/empleados/2",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "api",
-                "empleados",
-                "2"
               ]
             }
           },
@@ -665,7 +523,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQ0ODcsImV4cCI6MTc3NjkyNTM4N30.JDeJ3J5fsOen36CMUWC96HhhfOYa3e7zlQ3Gzi8KjKGvrDxugob1N6ryusGlJPyU1euaaQAsRQrNdxF7IOJuGw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODAzNDAsImV4cCI6MTc3NDA4MTI0MH0.Xd_IInBNOLWTd7ii7rd57pd_iHLQdOFocVrGkUXS8vclsDg9s-FdjffBI_Fz_kVtnZOauC3xL3LOv_jScD8GIg",
                   "type": "string"
                 }
               ]
@@ -673,7 +531,7 @@
             "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados/4/estado?estado=Activo",
+              "raw": "http://localhost:8080/api/empleados/2/activar",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -682,14 +540,8 @@
               "path": [
                 "api",
                 "empleados",
-                "4",
-                "estado"
-              ],
-              "query": [
-                {
-                  "key": "estado",
-                  "value": "Activo"
-                }
+                "2",
+                "activar"
               ]
             }
           },
