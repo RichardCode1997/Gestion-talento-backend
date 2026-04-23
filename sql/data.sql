@@ -25,7 +25,7 @@ FROM roles r WHERE r.nombre_rol = 'ADMINISTRADOR';
 -- Aqui vinculamos usando nombres y correos, no IDs manuales
 INSERT INTO empleados (nombre, apellido, dni, celular, direccion, id_departamento, id_horario, id_usuario, estado) -- Agregamos 'estado' 1
 SELECT
-    'Richard', 'Quispe', '12345678', '933788480', 'Calle abc mz abc lt.abc',
+    'Richard', 'Quispe', '12345678', '999888777', 'Calle abc mz abc lt.abc',
     d.id_departamento,
     h.id_horario,
     u.id_usuario,
