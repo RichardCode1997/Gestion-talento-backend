@@ -51,24 +51,27 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Endpoints públicos
+                        // Público
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/", "/index.html", "/login.html", "/css/**", "/js/**").permitAll()
 
-                        // Endpoints protegidos (Asegúrarse de que coincidan con tus @RequestMapping)
-                        // RESTRICCIÓN ESPECÍFICA (Solo Admin)
+                        // Solo ADMINISTRADOR
                         .requestMatchers("/api/usuarios/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/api/horarios/**").hasRole("ADMINISTRADOR")
 
-                        // ACCESO GENERAL (Cualquier rol logueado)
-                        .requestMatchers("/api/horarios/**").authenticated()
+                        // Empleados: SUPERVISOR solo puede GET, ADMIN puede todo
+                        .requestMatchers(HttpMethod.GET, "/api/empleados/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR")
+                        .requestMatchers("/api/empleados/**").hasRole("ADMINISTRADOR")
+
+                        // ADMIN, SUPERVISOR, ASESOR y SISTEMAS
+                        .requestMatchers("/api/asistencias/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+                        .requestMatchers("/api/tardanzas/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+                        .requestMatchers("/api/faltas/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+                        .requestMatchers("/api/permisos/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+
+                        // Todos los roles logueados
                         .requestMatchers("/api/noticias/**").authenticated()
-                        .requestMatchers("/api/roles/**").authenticated()
                         .requestMatchers("/api/departamentos/**").authenticated()
-                        .requestMatchers("/api/empleados/**").authenticated()
-                        .requestMatchers("/api/asistencias/**").authenticated()
-                        .requestMatchers("/api/faltas/**").authenticated()
-                        .requestMatchers("/api/tardanzas/**").authenticated()
-                        .requestMatchers("/api/permisos/**").authenticated()
+                        .requestMatchers("/api/roles/**").authenticated()
 
                         .anyRequest().authenticated()
                 );

@@ -3,6 +3,7 @@ package pe.edu.cibertec.gestiontalento.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pe.edu.cibertec.gestiontalento.model.Empleados;
+import pe.edu.cibertec.gestiontalento.model.EstadoEmpleado;
 import java.util.Optional;
 import java.util.List;
 
@@ -21,9 +22,9 @@ public interface EmpleadosRepository extends JpaRepository<Empleados, Integer> {
     //
     Optional<Empleados> findByCelular(String celular);
 
-    // Para listar solo a los que empleados laborando actualmente
-    List<Empleados> findByEstadoTrue();
+    // Para listar a los empleados
+    List<Empleados> findByEstado(EstadoEmpleado estado);
 
-    // Para Listar solo los empleados que ya no laboran actualmente
-    List<Empleados> findByEstadoFalse();
+    List<Empleados> findByUsuarioIsNull();
+
 }

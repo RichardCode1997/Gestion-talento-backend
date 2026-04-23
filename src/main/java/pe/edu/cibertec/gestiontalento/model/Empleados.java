@@ -18,8 +18,9 @@ public class Empleados {
     private String celular;
     private String direccion;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado")
-    private boolean estado = true; // 1 = Activo, 0 = Inactivo
+    private EstadoEmpleado estado = EstadoEmpleado.Activo;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")

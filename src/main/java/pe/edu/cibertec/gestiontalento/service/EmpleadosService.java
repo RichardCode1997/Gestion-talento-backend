@@ -3,6 +3,7 @@ package pe.edu.cibertec.gestiontalento.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.cibertec.gestiontalento.model.Empleados;
+import pe.edu.cibertec.gestiontalento.model.EstadoEmpleado;
 import pe.edu.cibertec.gestiontalento.repository.DepartamentosRepository;
 import pe.edu.cibertec.gestiontalento.repository.EmpleadosRepository;
 import pe.edu.cibertec.gestiontalento.repository.HorariosRepository;
@@ -47,7 +48,7 @@ public class EmpleadosService {
         }
 
         cargarRelaciones(empleado);
-        empleado.setEstado(true); // Aseguramos que nazca activo
+        empleado.setEstado(EstadoEmpleado.Activo);// Aseguramos que nazca activo
         return empleadosRepository.save(empleado);
     }
 
@@ -71,12 +72,8 @@ public class EmpleadosService {
         return empleadosRepository.findAll();
     }
 
-    public List<Empleados> listarSoloActivos() {
-        return empleadosRepository.findByEstadoTrue();
-    }
-
-    public List<Empleados> listarSoloInactivos() {
-        return empleadosRepository.findByEstadoFalse();
+    public List<Empleados> listarPorEstado(EstadoEmpleado estado) {
+        return empleadosRepository.findByEstado(estado);
     }
 
     public Empleados obtenerPorDni(String dni) {
@@ -87,6 +84,10 @@ public class EmpleadosService {
     public Empleados obtenerEmpleadoPorId(int id) {
         return empleadosRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("No se encontró el empleado con ID: " + id));
+    }
+
+    public List<Empleados> listarSinUsuario() {
+        return empleadosRepository.findByUsuarioIsNull();
     }
 
     public Empleados actualizarEmpleado(int id, Empleados datosNuevos) {
@@ -156,33 +157,22 @@ public class EmpleadosService {
         }
     }
 
-    public void desactivarEmpleado(int id) {
+    public void cambiarEstadoEmpleado(int id, EstadoEmpleado nuevoEstado, String correoLogueado) {
         Empleados empleado = obtenerEmpleadoPorId(id);
 
-        // Apagamos al empleado
-        empleado.setEstado(false);
+        // Regla: nadie puede cambiarse a sí mismo
+        if (empleado.getUsuario() != null &&
+                empleado.getUsuario().getCorreo().equalsIgnoreCase(correoLogueado)) {
+            throw new IllegalArgumentException("No puedes cambiar tu propio estado.");
+        }
 
-        // Apagamos también su cuenta de usuario para que no pueda entrar
-        if (empleado.getUsuario() != null) {
+        empleado.setEstado(nuevoEstado);
+
+        // Regla de negocio: solo CESADO afecta al usuario automáticamente
+        if (empleado.getUsuario() != null && nuevoEstado == EstadoEmpleado.Cesado) {
             empleado.getUsuario().setEstado(false);
         }
 
-        empleadosRepository.save(empleado);
-    }
-
-    public void activarEmpleado(int id) {
-        // 1. Buscamos al empleado (aunque esté inactivo, el ID sigue existiendo)
-        Empleados empleado = obtenerEmpleadoPorId(id);
-
-        // 2. Cambiamos su estado a true (vuelve a ser 1 en la BD)
-        empleado.setEstado(true);
-
-        // 3. También reactivamos su cuenta de usuario para que pueda volver a entrar
-        if (empleado.getUsuario() != null) {
-            empleado.getUsuario().setEstado(true);
-        }
-
-        // 4. Guardamos los cambios
         empleadosRepository.save(empleado);
     }
 }

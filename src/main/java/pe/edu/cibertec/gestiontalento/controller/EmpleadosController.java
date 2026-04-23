@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import pe.edu.cibertec.gestiontalento.model.Empleados;
+import pe.edu.cibertec.gestiontalento.model.EstadoEmpleado;
 import pe.edu.cibertec.gestiontalento.service.EmpleadosService;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -28,17 +30,10 @@ public class EmpleadosController {
         return ResponseEntity.ok(empleadosService.listarEmpleados());
     }
 
-    // SOLO muestra a los empleados activos
-    @GetMapping("/activos")
-    public ResponseEntity<List<Empleados>> listarEmpleadosActivos() {
-        return ResponseEntity.ok(empleadosService.listarSoloActivos());
-    }
-
-    // 2. La "Papelera" o Histórico (Solo los que fueron desactivados)
-    @GetMapping("/inactivos")
-    public ResponseEntity<List<Empleados>> listarEmpleadosInactivos() {
-        // Asegúrate de haber creado este metodo en el Service
-        return ResponseEntity.ok(empleadosService.listarSoloInactivos());
+    // Muestra a los empleados
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<Empleados>> listarPorEstado(@RequestParam EstadoEmpleado estado) {
+        return ResponseEntity.ok(empleadosService.listarPorEstado(estado));
     }
 
     // 3. Listado por dni
@@ -47,23 +42,20 @@ public class EmpleadosController {
         return ResponseEntity.ok(empleadosService.obtenerPorDni(dni));
     }
 
-    // --- OPERACIONES DE BORRADO / DESACTIVACIÓN ---
+    // --- OPERACIONES DE BORRADO / CAMBIO DE ESTADO ---
 
-    // 1. DESACTIVAR (Borrado Lógico) - Usamos PATCH porque solo modificamos un campo (el estado)
-    @PatchMapping("/{id}/desactivar")
-    public ResponseEntity<Void> desactivarEmpleado(@PathVariable int id) {
-        empleadosService.desactivarEmpleado(id);
+    // 1. CAMBIO DE ESTADO (Borrado Lógico) - Usamos PATCH porque solo modificamos un campo (el estado)
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<Void> cambiarEstado(
+            @PathVariable int id,
+            @RequestParam EstadoEmpleado estado,
+            Authentication authentication) {
+        String correoLogueado = authentication.getName();
+        empleadosService.cambiarEstadoEmpleado(id, estado, correoLogueado);
         return ResponseEntity.noContent().build();
     }
 
-    // 1. ACTIVAR - Usamos PATCH porque solo modificamos un campo (el estado)
-    @PatchMapping("/{id}/activar")
-    public ResponseEntity<Void> activarEmpleado(@PathVariable int id) {
-        empleadosService.activarEmpleado(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    // 3. ELIMINAR (Borrado Físico) - El que ya tenías, que borra de la DB
+    // 2. ELIMINAR (Borrado Físico)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarEmpleado(@PathVariable int id) {
         empleadosService.eliminarEmpleado(id);
@@ -80,6 +72,11 @@ public class EmpleadosController {
     @GetMapping("/{id}")
     public ResponseEntity<Empleados> obtenerEmpleadoPorId(@PathVariable int id) {
         return ResponseEntity.ok(empleadosService.obtenerEmpleadoPorId(id));
+    }
+
+    @GetMapping("/sin-usuario")
+    public ResponseEntity<List<Empleados>> listarSinUsuario() {
+        return ResponseEntity.ok(empleadosService.listarSinUsuario());
     }
 
     @PutMapping("/{id}")

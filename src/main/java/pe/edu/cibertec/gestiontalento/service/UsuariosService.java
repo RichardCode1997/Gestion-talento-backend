@@ -8,6 +8,11 @@ import pe.edu.cibertec.gestiontalento.repository.RolesRepository;
 import pe.edu.cibertec.gestiontalento.repository.UsuariosRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import pe.edu.cibertec.gestiontalento.model.Empleados;
+import pe.edu.cibertec.gestiontalento.model.EstadoEmpleado;
+import pe.edu.cibertec.gestiontalento.repository.EmpleadosRepository;
+import java.util.Optional;
+
 import java.util.List;
 
 @Service
@@ -16,12 +21,17 @@ public class UsuariosService {
     private final UsuariosRepository usuariosRepository;
     private final PasswordEncoder passwordEncoder;
     private final RolesRepository rolesRepository;
+    private final EmpleadosRepository empleadosRepository;
 
     @Autowired
-    public UsuariosService(UsuariosRepository usuariosRepository, PasswordEncoder passwordEncoder, RolesRepository rolesRepository) {
+    public UsuariosService(UsuariosRepository usuariosRepository,
+                           PasswordEncoder passwordEncoder,
+                           RolesRepository rolesRepository,
+                           EmpleadosRepository empleadosRepository) {
         this.usuariosRepository = usuariosRepository;
         this.passwordEncoder = passwordEncoder;
         this.rolesRepository = rolesRepository;
+        this.empleadosRepository = empleadosRepository;
     }
 
     public Usuarios crearUsuario(Usuarios usuario) {
@@ -108,6 +118,14 @@ public class UsuariosService {
     public void activarUsuario(int id) {
         Usuarios usuario = usuariosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Bloquear si el empleado vinculado está CESADO
+        Optional<Empleados> empleado = empleadosRepository.findByUsuarioIdUsuario(id);
+        if (empleado.isPresent() && empleado.get().getEstado() == EstadoEmpleado.Cesado) {
+            throw new IllegalArgumentException(
+                    "No se puede activar el usuario de un empleado cesado."
+            );
+        }
 
         usuario.setEstado(true);
         usuariosRepository.save(usuario);
