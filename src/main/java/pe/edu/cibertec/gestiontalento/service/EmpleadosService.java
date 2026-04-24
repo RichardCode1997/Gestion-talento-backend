@@ -94,6 +94,29 @@ public class EmpleadosService {
         // Buscamos al empleado que ya existe en la BD
         Empleados empleadoExistente = obtenerEmpleadoPorId(id);
 
+        // Validación: campos obligatorios no pueden ser NULL o vacíos
+        if (datosNuevos.getNombre() == null || datosNuevos.getNombre().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre es obligatorio.");
+        }
+        if (datosNuevos.getApellido() == null || datosNuevos.getApellido().trim().isEmpty()) {
+            throw new IllegalArgumentException("El apellido es obligatorio.");
+        }
+        if (datosNuevos.getDni() == null || datosNuevos.getDni().trim().isEmpty()) {
+            throw new IllegalArgumentException("El DNI es obligatorio.");
+        }
+        if (datosNuevos.getCelular() == null || datosNuevos.getCelular().trim().isEmpty()) {
+            throw new IllegalArgumentException("El celular es obligatorio.");
+        }
+        if (datosNuevos.getDireccion() == null || datosNuevos.getDireccion().trim().isEmpty()) {
+            throw new IllegalArgumentException("La dirección es obligatoria.");
+        }
+        if (datosNuevos.getDepartamento() == null) {
+            throw new IllegalArgumentException("El departamento es obligatorio.");
+        }
+        if (datosNuevos.getHorario() == null) {
+            throw new IllegalArgumentException("El horario es obligatorio.");
+        }
+
         if (datosNuevos.getUsuario() != null) {
             int idNuevoUser = datosNuevos.getUsuario().getIdUsuario();
             int idViejoUser = (empleadoExistente.getUsuario() != null)
