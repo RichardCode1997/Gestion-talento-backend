@@ -2,49 +2,98 @@
 
 API REST robusta para la administración de Recursos Humanos, diseñada para automatizar el control de asistencia, incidencias y comunicación interna.
 
+## 🌐 Demo
+
+[![Ver Demo](https://img.shields.io/badge/Ver%20Demo-Live-brightgreen?style=for-the-badge)](https://gestion-talento-frontend-swart.vercel.app)
+
+**Credenciales de prueba:**
+- Correo: `richard@gmail.com`
+- Contraseña: `123`
+
+---
+
 ## 🚀 Módulos y Funcionalidades
 
 ### 🛡️ Seguridad y Usuarios
-* **Autenticación:** Implementación de **JWT (Stateless)** y seguridad con **Spring Security**.
-* **Gestión de Usuarios:** CRUD completo de cuentas de acceso al sistema con contraseñas encriptadas (**BCrypt**).
+* **Autenticación JWT (Stateless):** Validación de credenciales mediante tokens firmados con Spring Security.
+* **Gestión de Usuarios:** CRUD completo con contraseñas encriptadas (BCrypt).
 
 ### 👥 Gestión de Personal y Horarios
-* **Empleados:** Listado y administración de perfiles de trabajadores.
+* **Empleados:** Administración completa de perfiles de trabajadores.
 * **Horarios:** CRUD para la configuración de jornadas laborales.
 
 ### ⏱️ Control de Asistencia e Incidencias
-* **Asistencias:** Seguimiento y listado de registros de entrada/salida.
+* **Asistencias:** Seguimiento de registros de entrada/salida.
 * **Tardanzas:** Control y reporte automático de ingresos fuera de hora.
-* **Faltas y Permisos:** Gestión y listado de inasistencias y flujo de solicitudes de permisos.
+* **Faltas y Permisos:** Gestión de inasistencias y solicitudes de permisos.
 
 ### 📢 Comunicación
-* **Noticias:** CRUD de comunicados y avisos corporativos para los trabajadores.
+* **Noticias:** CRUD de comunicados y avisos corporativos.
 
-### ✅ Validaciones y Reglas de Negocio
-Se han implementado restricciones a nivel de Service para garantizar la integridad de los datos:
-* **DNI y Celular Único:** Bloqueo de registros duplicados para evitar conflictos de identidad.
-* **Relación 1:1 Usuario-Empleado:** Garantiza que cada cuenta de acceso pertenezca a un único trabajador.
+---
+
+## ✅ Reglas de Negocio y Seguridad
+
+* **DNI y Celular Único:** Bloqueo de registros duplicados.
+* **Relación 1:1 Usuario-Empleado:** Cada cuenta pertenece a un único trabajador. Al eliminar un usuario, el empleado queda desvinculado automáticamente.
+* **Protección de Administradores:** No se puede desactivar, cesar, ni eliminar a un empleado o usuario con rol ADMINISTRADOR desde la aplicación. Solo un DBA puede hacerlo directamente en la base de datos.
+* **Autoprotección:** Un administrador no puede modificar ni eliminar su propia cuenta.
+* **Activación bloqueada:** No se puede activar el usuario de un empleado cesado.
 * **Integridad Referencial:** Control de excepciones para llaves foráneas (Departamentos, Horarios).
 
-## 🛠️ Instalación y Configuración
+---
 
-###  Base de Datos 🗄️
-Los scripts de configuración se encuentran en la carpeta `/sql`. Para levantar el entorno correctamente, ejecútalos en tu gestor de MySQL (Workbench, por ejemplo) en el siguiente orden:
+## 🛠️ Correr en local
 
-1.  **`schema.sql`**: Crea la base de datos `bd_api_asistencias_sama`, las tablas y las relaciones (Foreign Keys).
-2.  **`data.sql`**: Carga los datos maestros necesarios (Roles, Departamentos, Horarios) y registros de prueba.
+### Requisitos
+* Java 17
+* MySQL 8
+* Maven
 
-> **Nota:** No olvides actualizar las credenciales de tu base de datos en el archivo `src/main/resources/application.properties`.
+### 1. Clonar la rama de desarrollo
+```bash
+git clone -b dev https://github.com/RichardCode1997/Gestion-talento-backend.git
+```
 
-### 🚀 Pruebas con Postman
-En la carpeta `/postman` del repositorio encontrarás la colección lista para importar.
-1. Importa el archivo `Gestion Talento API.postman_collection.json`.
-2. Realiza el **Login** para obtener tu token.
-3. El token se aplica automáticamente a todos los endpoints mediante la herencia de autenticación (Bearer Token).
+### 2. Base de Datos
+Los scripts están en la carpeta `/sql`. Ejecútalos en este orden en MySQL Workbench:
+1. **`schema.sql`** — Crea la base de datos, tablas y relaciones.
+2. **`data.sql`** — Carga datos maestros (Roles, Departamentos, Horarios) y registros de prueba.
+
+### 3. Configuración
+En `src/main/resources/application.properties` actualiza tus credenciales:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/bd_api_asistencias_sama
+spring.datasource.username=tu_usuario
+spring.datasource.password=tu_password
+spring.profiles.active=dev
+```
+
+### 4. Ejecutar
+```bash
+./mvnw spring-boot:run
+```
+
+### 5. Pruebas con Postman
+En la carpeta `/postman` encontrarás la colección lista para importar.
+1. Importa `Gestion Talento API.postman_collection.json`.
+2. Crea un environment con `base_url = http://localhost:8080`.
+3. Haz Login para obtener tu token — se aplica automáticamente a todos los endpoints.
+
+---
 
 ## 🛠️ Stack Tecnológico
-* **Java 17 / Spring Boot 3**
-* **Spring Security**
-* **Spring Data JPA**
-* **MySQL**
-* **Lombok**
+
+| Tecnología | Uso |
+|---|---|
+| Java 17 / Spring Boot 3 | Framework principal |
+| Spring Security + JWT | Autenticación y autorización |
+| Spring Data JPA | Persistencia de datos |
+| MySQL | Base de datos |
+| Lombok | Reducción de boilerplate |
+| Maven | Gestión de dependencias |
+
+---
+
+## 🔗 Repositorio Frontend
+👉 [Gestion-talento-frontend](https://github.com/RichardCode1997/Gestion-talento-frontend)
