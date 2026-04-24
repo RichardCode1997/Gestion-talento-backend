@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import pe.edu.cibertec.gestiontalento.model.Usuarios;
 import pe.edu.cibertec.gestiontalento.service.UsuariosService;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -65,8 +66,8 @@ public class UsuariosController {
 
     // Bloqueo de acceso (Solo cambia estado a 0)
     @PatchMapping("/{id}/desactivar")
-    public ResponseEntity<Void> desactivarUsuario(@PathVariable int id) {
-        usuariosService.desactivarUsuario(id);
+    public ResponseEntity<Void> desactivarUsuario(@PathVariable int id, Authentication authentication) {
+        usuariosService.desactivarUsuario(id, authentication.getName());
         return ResponseEntity.noContent().build();
     }
 

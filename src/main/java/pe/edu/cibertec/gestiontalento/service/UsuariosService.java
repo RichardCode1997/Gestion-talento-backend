@@ -107,9 +107,19 @@ public class UsuariosService {
         return usuariosRepository.save(usuarioExistente);
     }
 
-    public void desactivarUsuario(int id) {
+    public void desactivarUsuario(int id, String correoAutenticado) {
         Usuarios usuario = usuariosRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // No puedes desactivarte a ti mismo
+        if (usuario.getCorreo().equalsIgnoreCase(correoAutenticado)) {
+            throw new IllegalArgumentException("No puedes desactivar tu propia cuenta.");
+        }
+
+        // No puedes desactivar a un ADMINISTRADOR
+        if (usuario.getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR")) {
+            throw new IllegalArgumentException("No se puede desactivar a un usuario con rol ADMINISTRADOR.");
+        }
 
         usuario.setEstado(false);
         usuariosRepository.save(usuario);
