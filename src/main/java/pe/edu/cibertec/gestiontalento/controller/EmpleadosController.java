@@ -57,8 +57,8 @@ public class EmpleadosController {
 
     // 2. ELIMINAR (Borrado Físico)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarEmpleado(@PathVariable int id) {
-        empleadosService.eliminarEmpleado(id);
+    public ResponseEntity<Void> eliminarEmpleado(@PathVariable int id, Authentication authentication) {
+        empleadosService.eliminarEmpleado(id, authentication.getName());
         return ResponseEntity.noContent().build();
     }
 

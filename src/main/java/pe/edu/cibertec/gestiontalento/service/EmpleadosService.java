@@ -139,21 +139,34 @@ public class EmpleadosService {
         return empleadosRepository.save(empleadoExistente);
     }
 
-    public void eliminarEmpleado(int id) {
+    public void eliminarEmpleado(int id, String correoAutenticado) {
         // 1. Buscamos al empleado y sus relaciones
         Empleados empleado = obtenerEmpleadoPorId(id);
 
-        // 2. Guardamos la referencia del usuario antes de borrar nada
+        // 2. Validaciones de seguridad
+        // No puedes eliminarte a ti mismo
+        if (empleado.getUsuario() != null &&
+                empleado.getUsuario().getCorreo().equalsIgnoreCase(correoAutenticado)) {
+            throw new IllegalArgumentException("No puedes eliminar tu propio empleado.");
+        }
+
+        // No puedes eliminar a un empleado con rol ADMINISTRADOR
+        if (empleado.getUsuario() != null &&
+                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR")) {
+            throw new IllegalArgumentException("No se puede eliminar a un empleado con rol ADMINISTRADOR.");
+        }
+
+        // 3. Guardamos la referencia del usuario antes de borrar nada
         // Si el usuario es NULL, no pasará nada, pero si existe, lo tenemos listo
         int idUsuarioAsociado = (empleado.getUsuario() != null)
                 ? empleado.getUsuario().getIdUsuario()
                 : -1;
 
-        // 3. Borramos al EMPLEADO primero
+        // 4. Borramos al EMPLEADO primero
         // Esto es vital porque el empleado es quien tiene la FK (llave foránea)
         empleadosRepository.delete(empleado);
 
-        // 4. Si el empleado tenía un usuario, lo borramos ahora que ya no hay vínculos
+        // 5. Si el empleado tenía un usuario, lo borramos ahora que ya no hay vínculos
         if (idUsuarioAsociado != -1) {
             usuariosRepository.deleteById(idUsuarioAsociado);
         }
