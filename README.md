@@ -43,6 +43,18 @@ API REST robusta para la administración de Recursos Humanos, diseñada para aut
 
 ---
 
+## 🚧 En Desarrollo
+
+Los siguientes módulos están disponibles en la API pero aún en proceso de integración con el frontend:
+
+* **Horarios** — Configuración de jornadas laborales
+* **Asistencias** — Registro de entradas y salidas
+* **Tardanzas** — Control de ingresos fuera de hora
+* **Faltas** — Gestión de inasistencias
+* **Permisos** — Solicitudes de permisos justificados
+* **Noticias** — Comunicados corporativos
+---
+
 ## 🛠️ Correr en local
 
 ### Requisitos
@@ -88,19 +100,6 @@ En la carpeta `/postman` encontrarás la colección lista para importar.
 1. Importa `Gestion Talento API.postman_collection.json`.
 2. Crea un environment con `base_url = http://localhost:8080`.
 3. Haz Login para obtener tu token — se aplica automáticamente a todos los endpoints.
-
----
-
-## 🚧 En Desarrollo
-
-Los siguientes módulos están disponibles en la API pero aún en proceso de integración con el frontend:
-
-* **Horarios** — Configuración de jornadas laborales
-* **Asistencias** — Registro de entradas y salidas
-* **Tardanzas** — Control de ingresos fuera de hora
-* **Faltas** — Gestión de inasistencias
-* **Permisos** — Solicitudes de permisos justificados
-* **Noticias** — Comunicados corporativos
 
 ---
 ## 🛠️ Stack Tecnológico
