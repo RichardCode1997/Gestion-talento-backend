@@ -14,9 +14,12 @@ import java.util.Date;
 @Component
 public class JwtGenerador {
 
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
     // NUEVO: Metodo para convertir tu String de firma en una Key real
     private Key getSigningKey() {
-        byte[] keyBytes = ConstantesSeguridad.JWT_FIRMA.getBytes(StandardCharsets.UTF_8);
+        byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
