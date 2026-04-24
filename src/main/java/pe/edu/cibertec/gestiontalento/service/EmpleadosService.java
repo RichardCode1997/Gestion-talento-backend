@@ -129,7 +129,9 @@ public class EmpleadosService {
         empleadoExistente.setDireccion(datosNuevos.getDireccion());
 
         // Mapeamos y cargamos las relaciones nuevas
-        empleadoExistente.setUsuario(datosNuevos.getUsuario());
+        if (datosNuevos.getUsuario() != null) {
+            empleadoExistente.setUsuario(datosNuevos.getUsuario());
+        }
         empleadoExistente.setHorario(datosNuevos.getHorario());
         empleadoExistente.setDepartamento(datosNuevos.getDepartamento());
 
