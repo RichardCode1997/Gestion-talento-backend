@@ -54,8 +54,8 @@ public class UsuariosController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuarios> modificarUsuario(@PathVariable int id, @RequestBody Usuarios usuarioModificado) {
-        return ResponseEntity.ok(usuariosService.modificarUsuario(id, usuarioModificado));
+    public ResponseEntity<Usuarios> modificarUsuario(@PathVariable int id, @RequestBody Usuarios usuarioModificado, Authentication authentication) {
+        return ResponseEntity.ok(usuariosService.modificarUsuario(id, usuarioModificado,authentication.getName()));
     }
 
     @DeleteMapping("/{id}")

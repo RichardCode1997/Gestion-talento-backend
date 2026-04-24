@@ -80,8 +80,30 @@ public class UsuariosService {
                 .orElseThrow(() -> new IllegalArgumentException("No se encontró el usuario con ID: " + id));
     }
 
-    public Usuarios modificarUsuario(int id, Usuarios usuarioModificado) {
+    public Usuarios modificarUsuario(int id, Usuarios usuarioModificado, String correoAutenticado) {
         Usuarios usuarioExistente = obtenerUsuarioPorId(id);
+
+        // Validación: no puedes cambiar tu propio rol
+        if (usuarioExistente.getCorreo().equalsIgnoreCase(correoAutenticado) &&
+                usuarioModificado.getRol() != null &&
+                usuarioModificado.getRol().getIdRol() != usuarioExistente.getRol().getIdRol()) {
+            throw new IllegalArgumentException("No puedes cambiar tu propio rol.");
+        }
+        // Validación: no puedes editar a otro ADMINISTRADOR
+        if (usuarioExistente.getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+                !usuarioExistente.getCorreo().equalsIgnoreCase(correoAutenticado)) {
+            throw new IllegalArgumentException("No se puede modificar a un usuario con rol ADMINISTRADOR.");
+        }
+
+        // Validación: no puedes asignar rol ADMINISTRADOR a otro usuario
+        if (usuarioModificado.getRol() != null) {
+            Roles rolNuevo = rolesRepository.findById(usuarioModificado.getRol().getIdRol())
+                    .orElseThrow(() -> new IllegalArgumentException("El rol especificado no existe"));
+            if (rolNuevo.getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+                    !usuarioExistente.getCorreo().equalsIgnoreCase(correoAutenticado)) {
+                throw new IllegalArgumentException("No puedes asignar el rol ADMINISTRADOR a otro usuario.");
+            }
+        }
 
         // 1. Actualizar el correo
         // Solo validamos si el correo que envían es DIFERENTE al que ya tiene
