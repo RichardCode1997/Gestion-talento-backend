@@ -63,9 +63,18 @@ Los scripts están en la carpeta `/sql`. Ejecútalos en este orden en MySQL Work
 ### 3. Configuración
 En `src/main/resources/application.properties` actualiza tus credenciales:
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/bd_api_asistencias_sama
+# mysql
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/bd_api_asistencias_sama?useSSL=false&serverTimeZone=UTC
 spring.datasource.username=tu_usuario
-spring.datasource.password=tu_password
+spring.datasource.password=tu_contraseña
+
+# Configurar JPA
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.show-sql=true
+
+# Perfil de desarrollo
 spring.profiles.active=dev
 ```
 
