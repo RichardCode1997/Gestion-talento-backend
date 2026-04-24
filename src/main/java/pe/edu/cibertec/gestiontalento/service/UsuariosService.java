@@ -143,6 +143,14 @@ public class UsuariosService {
 
     public void eliminarUsuario(int id) {
         Usuarios usuario = obtenerUsuarioPorId(id);
+
+        // Desvincular empleado antes de borrar el usuario
+        Optional<Empleados> empleado = empleadosRepository.findByUsuarioIdUsuario(id);
+        if (empleado.isPresent()) {
+            empleado.get().setUsuario(null);
+            empleadosRepository.save(empleado.get());
+        }
+
         usuariosRepository.delete(usuario);
     }
 }

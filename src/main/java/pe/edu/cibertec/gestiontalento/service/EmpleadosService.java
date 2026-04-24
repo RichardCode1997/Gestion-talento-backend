@@ -166,11 +166,10 @@ public class EmpleadosService {
             throw new IllegalArgumentException("No puedes cambiar tu propio estado.");
         }
 
-        // Regla: no se puede cesar a un ADMINISTRADOR
-        if (nuevoEstado == EstadoEmpleado.Cesado &&
-                empleado.getUsuario() != null &&
+        // Regla: no se puede modificar el estado de un empleado con rol ADMINISTRADOR
+        if (empleado.getUsuario() != null &&
                 empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR")) {
-            throw new IllegalArgumentException("No se puede cesar a un empleado con rol ADMINISTRADOR.");
+            throw new IllegalArgumentException("No se puede modificar el estado de un empleado con rol ADMINISTRADOR.");
         }
 
         empleado.setEstado(nuevoEstado);
