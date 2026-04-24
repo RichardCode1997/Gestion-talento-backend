@@ -141,8 +141,18 @@ public class UsuariosService {
         usuariosRepository.save(usuario);
     }
 
-    public void eliminarUsuario(int id) {
+    public void eliminarUsuario(int id, String correoAutenticado) {
         Usuarios usuario = obtenerUsuarioPorId(id);
+
+        // No puedes eliminarte a ti mismo
+        if (usuario.getCorreo().equalsIgnoreCase(correoAutenticado)) {
+            throw new IllegalArgumentException("No puedes eliminar tu propia cuenta.");
+        }
+
+        // No puedes eliminar a un ADMINISTRADOR
+        if (usuario.getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR")) {
+            throw new IllegalArgumentException("No se puede eliminar a un usuario con rol ADMINISTRADOR.");
+        }
 
         // Desvincular empleado antes de borrar el usuario
         Optional<Empleados> empleado = empleadosRepository.findByUsuarioIdUsuario(id);

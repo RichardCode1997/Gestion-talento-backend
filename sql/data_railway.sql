@@ -1,5 +1,5 @@
 USE `railway`;
-
+UPDATE empleados SET estado = 'Activo' WHERE id_empleado = 2;
 /* 1. LIMPIEZA TOTAL - Desactiva protecciones y limpia tablas */
 SET FOREIGN_KEY_CHECKS = 0;
 SET SQL_SAFE_UPDATES = 0;
