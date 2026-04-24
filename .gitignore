@@ -33,3 +33,5 @@ build/
 .vscode/
 
 ### Ignore ###
+schema_railway.sql
+data_railway.sql
