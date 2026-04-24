@@ -82,6 +82,18 @@ En la carpeta `/postman` encontrarás la colección lista para importar.
 
 ---
 
+## 🚧 En Desarrollo
+
+Los siguientes módulos están disponibles en la API pero aún en proceso de integración con el frontend:
+
+* **Horarios** — Configuración de jornadas laborales
+* **Asistencias** — Registro de entradas y salidas
+* **Tardanzas** — Control de ingresos fuera de hora
+* **Faltas** — Gestión de inasistencias
+* **Permisos** — Solicitudes de permisos justificados
+* **Noticias** — Comunicados corporativos
+
+---
 ## 🛠️ Stack Tecnológico
 
 | Tecnología | Uso |
