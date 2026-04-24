@@ -17,7 +17,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTM2NTksImV4cCI6MTc3NTc5NDU1OX0.5xKpvXone-ThsL1bs9Uj9VToXUy6FICFfVSkS0RaLKNK0LLqIb-z73-FULbObgRs4_jBbkuvdy_vPXG2hvPrHg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQyNDIsImV4cCI6MTc3NjkyNTE0Mn0.SnAmTytIpyiH7Ajov9gghj4QuMvncy5LssncCGYb3Wmvd0mEcMGAVH4U7Ep29OyzHpID0r1CGvGKzPOziXVShg",
                   "type": "string"
                 }
               ]
@@ -25,12 +25,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/usuarios",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios"
@@ -47,7 +45,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTM2NTksImV4cCI6MTc3NTc5NDU1OX0.5xKpvXone-ThsL1bs9Uj9VToXUy6FICFfVSkS0RaLKNK0LLqIb-z73-FULbObgRs4_jBbkuvdy_vPXG2hvPrHg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
                   "type": "string"
                 }
               ]
@@ -55,12 +53,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/usuarios/activos",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios/activos",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios",
@@ -78,7 +74,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODE2OTIsImV4cCI6MTc3NDA4MjU5Mn0.MEjkP7U8zpYfyJWDG3b8rvS-ImisEwU5iy8IYPwUAMKaahQC6mAQKWBBxS20puxm6yvaKyfw48DiCYLkcaSYmA",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
                   "type": "string"
                 }
               ]
@@ -86,12 +82,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/usuarios/inactivos",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios/inactivos",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios",
@@ -117,12 +111,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/usuarios/buscar?correo=ssericksson@gmail.com",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios/buscar?correo=ssericksson@gmail.com",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios",
@@ -133,6 +125,35 @@
                   "key": "correo",
                   "value": "ssericksson@gmail.com"
                 }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjM0MzYsImV4cCI6MTc3NjkyNDMzNn0.mNUwrLpv8VEP9_nuaoIoEEOJJfYhbH1vItIqwSTLHkyBJeR08XIyIUllDp5q4lYwNg78xXJ7cNAG6F63GzfLzg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/usuarios/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "usuarios",
+                "1"
               ]
             }
           },
@@ -163,12 +184,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/usuarios",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios"
@@ -202,12 +221,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/usuarios/1",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios/1",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios",
@@ -225,7 +242,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNzc0MDUsImV4cCI6MTc3NDA3ODMwNX0.VZb3b3Y-f2fLqGWMrxP6s_NhdgQNhouY6uU0BoubFJkRzMm99aLeS4l85jPjFPdyfQCi7Xdcw9JtmOyoRJKhBA",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3Njk5MTEyMCwiZXhwIjoxNzc2OTkyMDIwfQ.fDu29S0eI5P9wSrVD5azncQfKVSS0CR-_vHW2DXUi5NITqmskE8e1e3vKVLavZdvF6d6jkvWvznZnI_ishYKUQ",
                   "type": "string"
                 }
               ]
@@ -233,17 +250,15 @@
             "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/usuarios/3/activar",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios/1/desactivar",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios",
-                "3",
-                "activar"
+                "1",
+                "desactivar"
               ]
             }
           },
@@ -265,12 +280,10 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/usuarios/2",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/usuarios/2",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "usuarios",
@@ -320,7 +333,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTMwMzgsImV4cCI6MTc3NTc5MzkzOH0.QUdXs17k6_8lNhO-odNNY0NscIpcPcCAUXJl06HEjyfzoAlcHeWOjXhypzndbFuv4LFSdLzVzbl4mgtIOzwIaA",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3Njk5MTEyMCwiZXhwIjoxNzc2OTkyMDIwfQ.fDu29S0eI5P9wSrVD5azncQfKVSS0CR-_vHW2DXUi5NITqmskE8e1e3vKVLavZdvF6d6jkvWvznZnI_ishYKUQ",
                   "type": "string"
                 }
               ]
@@ -328,12 +341,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados"
@@ -350,7 +361,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODIzNDcsImV4cCI6MTc3NDA4MzI0N30.fbhzoslALASvFBjMSVq6mkolu_aXW_34RGMTyCe5D3FYiH_Y5STr8lFYUGcrUyJgeiGXuQoJ9sA04p8AWCKkyw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjM0MzYsImV4cCI6MTc3NjkyNDMzNn0.mNUwrLpv8VEP9_nuaoIoEEOJJfYhbH1vItIqwSTLHkyBJeR08XIyIUllDp5q4lYwNg78xXJ7cNAG6F63GzfLzg",
                   "type": "string"
                 }
               ]
@@ -358,16 +369,20 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados/activos",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados/filtrar?estado=Activo",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados",
-                "activos"
+                "filtrar"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "Activo"
+                }
               ]
             }
           },
@@ -381,7 +396,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODIzNDcsImV4cCI6MTc3NDA4MzI0N30.fbhzoslALASvFBjMSVq6mkolu_aXW_34RGMTyCe5D3FYiH_Y5STr8lFYUGcrUyJgeiGXuQoJ9sA04p8AWCKkyw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
                   "type": "string"
                 }
               ]
@@ -389,16 +404,84 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados/inactivos",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados/filtrar?estado=Inactivo",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados",
-                "inactivos"
+                "filtrar"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "Inactivo"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Cesados",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjI0NjksImV4cCI6MTc3NjkyMzM2OX0.0L0zE0YImPCKi1M3n2iqoC-973xU-FMwX_rrCTFc09EhLvxfF8qoUZ-J7T1Biw_6pOVBMRfSqcVpqN8s6SJsaw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/empleados/filtrar?estado=Cesado",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "empleados",
+                "filtrar"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "Cesado"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Empleados Sin Usuario",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQ0ODcsImV4cCI6MTc3NjkyNTM4N30.JDeJ3J5fsOen36CMUWC96HhhfOYa3e7zlQ3Gzi8KjKGvrDxugob1N6ryusGlJPyU1euaaQAsRQrNdxF7IOJuGw",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/empleados/sin-usuario",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "empleados",
+                "sin-usuario"
               ]
             }
           },
@@ -420,17 +503,44 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados/dni/12345678",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados/dni/12345678",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados",
                 "dni",
                 "12345678"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjM0MzYsImV4cCI6MTc3NjkyNDMzNn0.mNUwrLpv8VEP9_nuaoIoEEOJJfYhbH1vItIqwSTLHkyBJeR08XIyIUllDp5q4lYwNg78xXJ7cNAG6F63GzfLzg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/empleados/2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "empleados",
+                "2"
               ]
             }
           },
@@ -461,12 +571,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/empleados",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados"
@@ -500,12 +608,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/empleados/1",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados/1",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados",
@@ -523,7 +629,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODAzNDAsImV4cCI6MTc3NDA4MTI0MH0.Xd_IInBNOLWTd7ii7rd57pd_iHLQdOFocVrGkUXS8vclsDg9s-FdjffBI_Fz_kVtnZOauC3xL3LOv_jScD8GIg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3Njk5NjA5NCwiZXhwIjoxNzc2OTk2OTk0fQ.t-1KzgT6shDMubnsbN5Vvi9xnTwX8Rbk0OtuY6Kg838XcXGnFiwlrrudzlTqjLjvGJQI21z0hDiYwYWcTZnISw",
                   "type": "string"
                 }
               ]
@@ -531,17 +637,21 @@
             "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/empleados/2/activar",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados/2/estado?estado=Activo",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados",
                 "2",
-                "activar"
+                "estado"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "Activo"
+                }
               ]
             }
           },
@@ -555,7 +665,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODUwMzIsImV4cCI6MTc3NDA4NTkzMn0.-TRKqbNIvLHXnk6qAvBad0D5k4qBO4uQ4YjU_ZRQPYXA-lDerqodBBftbDKsAlUQFlw3XrlN-Mi9kUsSeTlnnA",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3NzAwMjQyNiwiZXhwIjoxNzc3MDAzMzI2fQ.YlfIwZApv9eR8BFo2T4aTDMNY90Ivpy94JnObv52jGhF4D6rzVCEtqMCb69AcRYhlbbGdVHqPbMmCL2iDSRmcg",
                   "type": "string"
                 }
               ]
@@ -572,16 +682,14 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/empleados/11",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/empleados/4",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "empleados",
-                "11"
+                "4"
               ]
             }
           },
@@ -608,12 +716,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/horarios",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/horarios",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "horarios"
@@ -647,12 +753,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/horarios",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/horarios",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "horarios"
@@ -686,12 +790,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/horarios/6",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/horarios/6",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "horarios",
@@ -717,12 +819,10 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/horarios/5",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/horarios/5",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "horarios",
@@ -753,12 +853,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/noticias",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/noticias",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "noticias"
@@ -792,12 +890,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/noticias",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/noticias",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "noticias"
@@ -831,12 +927,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/noticias/4",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/noticias/4",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "noticias",
@@ -862,12 +956,10 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/noticias/4",
-              "protocol": "http",
+              "raw": "{{base_url}}/api/noticias/4",
               "host": [
-                "localhost"
+                "{{base_url}}"
               ],
-              "port": "8080",
               "path": [
                 "api",
                 "noticias",
@@ -886,7 +978,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"correo\":\"ssericksson@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
+          "raw": "{\r\n    \"correo\":\"richard@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -894,12 +986,10 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/api/auth/login",
-          "protocol": "http",
+          "raw": "{{base_url}}/api/auth/login",
           "host": [
-            "localhost"
+            "{{base_url}}"
           ],
-          "port": "8080",
           "path": [
             "api",
             "auth",
@@ -925,12 +1015,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/asistencias",
-          "protocol": "http",
+          "raw": "{{base_url}}/api/asistencias",
           "host": [
-            "localhost"
+            "{{base_url}}"
           ],
-          "port": "8080",
           "path": [
             "api",
             "asistencias"
@@ -955,12 +1043,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/faltas",
-          "protocol": "http",
+          "raw": "{{base_url}}/api/faltas",
           "host": [
-            "localhost"
+            "{{base_url}}"
           ],
-          "port": "8080",
           "path": [
             "api",
             "faltas"
@@ -985,12 +1071,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/permisos",
-          "protocol": "http",
+          "raw": "{{base_url}}/api/permisos",
           "host": [
-            "localhost"
+            "{{base_url}}"
           ],
-          "port": "8080",
           "path": [
             "api",
             "permisos"
@@ -1015,12 +1099,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/tardanzas",
-          "protocol": "http",
+          "raw": "{{base_url}}/api/tardanzas",
           "host": [
-            "localhost"
+            "{{base_url}}"
           ],
-          "port": "8080",
           "path": [
             "api",
             "tardanzas"
@@ -1045,12 +1127,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/departamentos",
-          "protocol": "http",
+          "raw": "{{base_url}}/api/departamentos",
           "host": [
-            "localhost"
+            "{{base_url}}"
           ],
-          "port": "8080",
           "path": [
             "api",
             "departamentos"
@@ -1075,12 +1155,10 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/api/roles",
-          "protocol": "http",
+          "raw": "{{base_url}}/api/roles",
           "host": [
-            "localhost"
+            "{{base_url}}"
           ],
-          "port": "8080",
           "path": [
             "api",
             "roles"
