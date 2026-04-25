@@ -17,7 +17,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzY5MjQyNDIsImV4cCI6MTc3NjkyNTE0Mn0.SnAmTytIpyiH7Ajov9gghj4QuMvncy5LssncCGYb3Wmvd0mEcMGAVH4U7Ep29OyzHpID0r1CGvGKzPOziXVShg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
                   "type": "string"
                 }
               ]
@@ -204,7 +204,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODQyNjgsImV4cCI6MTc3NDA4NTE2OH0.qdacC5pPXYQnsxLkLS_wCdL2FH1qdL4K1Pi4Ompry0bX4vZ-yajXdgE-lLECbctU_5nvmJVWO3DiwHAaYTfBIg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
                   "type": "string"
                 }
               ]
@@ -213,7 +213,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"correo\": \"ssericksson@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"rol\": {\r\n        \"idRol\": 4\r\n    }\r\n}",
+              "raw": "{\r\n    \"correo\": \"richard@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"rol\": {\r\n        \"idRol\": 2\r\n    }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -221,14 +221,14 @@
               }
             },
             "url": {
-              "raw": "{{base_url}}/api/usuarios/1",
+              "raw": "{{base_url}}/api/usuarios/2",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "usuarios",
-                "1"
+                "2"
               ]
             }
           },
@@ -242,7 +242,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3Njk5MTEyMCwiZXhwIjoxNzc2OTkyMDIwfQ.fDu29S0eI5P9wSrVD5azncQfKVSS0CR-_vHW2DXUi5NITqmskE8e1e3vKVLavZdvF6d6jkvWvznZnI_ishYKUQ",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
                   "type": "string"
                 }
               ]
@@ -250,15 +250,15 @@
             "method": "PATCH",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/usuarios/1/desactivar",
+              "raw": "{{base_url}}/api/usuarios/2/activar",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "usuarios",
-                "1",
-                "desactivar"
+                "2",
+                "activar"
               ]
             }
           },
@@ -272,7 +272,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwNzcyNTQsImV4cCI6MTc3NDA3ODE1NH0.mswokMxwoENRZpFtf_Bw3STGu2Io_SRN80ZGG1jpR_XTtD3CPiWPUM_rPsAOwYsLnNycEgv3YOrry7toZy9vBA",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
                   "type": "string"
                 }
               ]
@@ -280,14 +280,14 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/usuarios/2",
+              "raw": "{{base_url}}/api/usuarios/1",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "usuarios",
-                "2"
+                "1"
               ]
             }
           },
@@ -333,7 +333,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3Njk5MTEyMCwiZXhwIjoxNzc2OTkyMDIwfQ.fDu29S0eI5P9wSrVD5azncQfKVSS0CR-_vHW2DXUi5NITqmskE8e1e3vKVLavZdvF6d6jkvWvznZnI_ishYKUQ",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
                   "type": "string"
                 }
               ]
@@ -591,7 +591,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODQyNjgsImV4cCI6MTc3NDA4NTE2OH0.qdacC5pPXYQnsxLkLS_wCdL2FH1qdL4K1Pi4Ompry0bX4vZ-yajXdgE-lLECbctU_5nvmJVWO3DiwHAaYTfBIg",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3NzA2NTU5NCwiZXhwIjoxNzc3MDY2NDk0fQ.ehoe_T7QO2XdbAqYqRHqk20a47XETNmQY4Fcph-tsfcKxH8ee5o2uYy8ndBpxgC0SKBEybPh9jQ_Xz0iNWUZBQ",
                   "type": "string"
                 }
               ]
@@ -600,7 +600,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Richard\",\r\n    \"apellido\": \"Quispe\",\r\n    \"dni\": \"12345678\",\r\n    \"celular\": \"123456789\",\r\n    \"direccion\": \"Calle abc mz abc lt.abc\",\r\n    \"usuario\": { \"idUsuario\": 1 },\r\n    \"horario\": { \"idHorario\": 1 },\r\n    \"departamento\": { \"idDepartamento\": 1 }\r\n}",
+              "raw": "{\r\n    \"nombre\": \"Jeremy\",\r\n    \"apellido\": \"Aliaga\",\r\n    \"dni\": \"44665577\",\r\n    \"celular\": \"993666721\",\r\n    \"direccion\": \"Calle abc mz abc lt.abc\",\r\n    \"usuario\": { \"idUsuario\": 3 },\r\n    \"horario\": { \"idHorario\": 1 },\r\n    \"departamento\": { \"idDepartamento\": 3 }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -608,14 +608,14 @@
               }
             },
             "url": {
-              "raw": "{{base_url}}/api/empleados/1",
+              "raw": "{{base_url}}/api/empleados/3",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
                 "api",
                 "empleados",
-                "1"
+                "3"
               ]
             }
           },
@@ -629,7 +629,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3Njk5NjA5NCwiZXhwIjoxNzc2OTk2OTk0fQ.t-1KzgT6shDMubnsbN5Vvi9xnTwX8Rbk0OtuY6Kg838XcXGnFiwlrrudzlTqjLjvGJQI21z0hDiYwYWcTZnISw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
                   "type": "string"
                 }
               ]
@@ -708,7 +708,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzU3OTMwMzgsImV4cCI6MTc3NTc5MzkzOH0.QUdXs17k6_8lNhO-odNNY0NscIpcPcCAUXJl06HEjyfzoAlcHeWOjXhypzndbFuv4LFSdLzVzbl4mgtIOzwIaA",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
                   "type": "string"
                 }
               ]
