@@ -8,6 +8,9 @@ import pe.edu.cibertec.gestiontalento.repository.DepartamentosRepository;
 import pe.edu.cibertec.gestiontalento.repository.EmpleadosRepository;
 import pe.edu.cibertec.gestiontalento.repository.HorariosRepository;
 import pe.edu.cibertec.gestiontalento.repository.UsuariosRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -68,8 +71,8 @@ public class EmpleadosService {
         }
     }
 
-    public List<Empleados> listarEmpleados() {
-        return empleadosRepository.findAll();
+    public Page<Empleados> listarEmpleados(Pageable pageable) {
+        return empleadosRepository.findAll(pageable);
     }
 
     public List<Empleados> listarPorEstado(EstadoEmpleado estado) {

@@ -9,6 +9,10 @@ import pe.edu.cibertec.gestiontalento.model.Usuarios;
 import pe.edu.cibertec.gestiontalento.service.UsuariosService;
 import org.springframework.security.core.Authentication;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 @RestController
@@ -28,8 +32,11 @@ public class UsuariosController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuarios>> listarUsuarios() {
-        return ResponseEntity.ok(usuariosService.listarUsuarios());
+    public ResponseEntity<Page<Usuarios>> listarUsuarios(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(usuariosService.listarUsuarios(pageable));
     }
 
     @GetMapping("/activos")

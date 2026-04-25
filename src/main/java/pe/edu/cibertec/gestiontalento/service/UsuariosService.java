@@ -7,6 +7,8 @@ import pe.edu.cibertec.gestiontalento.model.Usuarios;
 import pe.edu.cibertec.gestiontalento.repository.RolesRepository;
 import pe.edu.cibertec.gestiontalento.repository.UsuariosRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import pe.edu.cibertec.gestiontalento.model.Empleados;
 import pe.edu.cibertec.gestiontalento.model.EstadoEmpleado;
@@ -58,8 +60,8 @@ public class UsuariosService {
         return usuariosRepository.save(usuario);
     }
 
-    public List<Usuarios> listarUsuarios() {
-        return usuariosRepository.findAll();
+    public Page<Usuarios> listarUsuarios(Pageable pageable) {
+        return usuariosRepository.findAll(pageable);
     }
 
     public List<Usuarios> listarUsuariosActivos() {

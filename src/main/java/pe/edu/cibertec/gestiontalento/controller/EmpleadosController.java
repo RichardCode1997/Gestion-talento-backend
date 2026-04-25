@@ -9,6 +9,9 @@ import pe.edu.cibertec.gestiontalento.model.Empleados;
 import pe.edu.cibertec.gestiontalento.model.EstadoEmpleado;
 import pe.edu.cibertec.gestiontalento.service.EmpleadosService;
 import org.springframework.security.core.Authentication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -26,8 +29,11 @@ public class EmpleadosController {
     // --- LISTADO ---
 
     @GetMapping
-    public ResponseEntity<List<Empleados>> listarTodos() {
-        return ResponseEntity.ok(empleadosService.listarEmpleados());
+    public ResponseEntity<Page<Empleados>> listarEmpleados(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(empleadosService.listarEmpleados(pageable));
     }
 
     // Muestra a los empleados
