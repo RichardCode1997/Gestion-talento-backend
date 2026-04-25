@@ -71,8 +71,8 @@ public class EmpleadosController {
     // --- RESTO DE MÉTODOS ---
 
     @PostMapping
-    public ResponseEntity<Empleados> crearEmpleado(@RequestBody Empleados empleado) {
-        return new ResponseEntity<>(empleadosService.crearEmpleado(empleado), HttpStatus.CREATED);
+    public ResponseEntity<Empleados> crearEmpleado(@RequestBody Empleados empleado, Authentication authentication) {
+        return new ResponseEntity<>(empleadosService.crearEmpleado(empleado, authentication.getName()), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -86,8 +86,8 @@ public class EmpleadosController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Empleados> actualizarEmpleado(@PathVariable int id, @RequestBody Empleados empleado) {
-        Empleados actualizado = empleadosService.actualizarEmpleado(id, empleado);
+    public ResponseEntity<Empleados> actualizarEmpleado(@PathVariable int id, @RequestBody Empleados empleado, Authentication authentication) {
+        Empleados actualizado = empleadosService.actualizarEmpleado(id, empleado, authentication.getName());
         return ResponseEntity.ok(actualizado);
     }
 }

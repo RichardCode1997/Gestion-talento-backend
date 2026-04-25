@@ -33,7 +33,22 @@ public class EmpleadosService {
         this.departamentosRepository = departamentosRepository;
     }
 
-    public Empleados crearEmpleado(Empleados empleado) {
+    public Empleados crearEmpleado(Empleados empleado, String correoAutenticado) {
+        // Obtener rol del usuario autenticado
+        String rolAutenticado = usuariosRepository.findByCorreo(correoAutenticado)
+                .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
+                .getRol().getNombreRol();
+
+        // Validación: solo SUPERADMIN puede crear un empleado vinculado a un ADMINISTRADOR
+        if (empleado.getUsuario() != null) {
+            usuariosRepository.findById(empleado.getUsuario().getIdUsuario()).ifPresent(u -> {
+                if (u.getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+                        !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
+                    throw new IllegalArgumentException("Solo el SUPERADMIN puede crear un empleado con rol ADMINISTRADOR.");
+                }
+            });
+        }
+
         // 1. Validar DNI único
         if (empleadosRepository.findByDni(empleado.getDni()).isPresent()) {
             throw new IllegalArgumentException("El DNI " + empleado.getDni() + " ya está registrado.");
@@ -93,9 +108,26 @@ public class EmpleadosService {
         return empleadosRepository.findByUsuarioIsNull();
     }
 
-    public Empleados actualizarEmpleado(int id, Empleados datosNuevos) {
-        // Buscamos al empleado que ya existe en la BD
+    public Empleados actualizarEmpleado(int id, Empleados datosNuevos, String correoAutenticado) {
         Empleados empleadoExistente = obtenerEmpleadoPorId(id);
+
+        // Obtener rol del usuario autenticado
+        String rolAutenticado = usuariosRepository.findByCorreo(correoAutenticado)
+                .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
+                .getRol().getNombreRol();
+
+        // Validación 1: nadie puede editar a un empleado con rol SUPERADMIN
+        if (empleadoExistente.getUsuario() != null &&
+                empleadoExistente.getUsuario().getRol().getNombreRol().equalsIgnoreCase("SUPERADMIN")) {
+            throw new IllegalArgumentException("No se puede editar a un empleado con rol SUPERADMIN.");
+        }
+
+        // Validación 2: solo SUPERADMIN puede editar a un empleado con rol ADMINISTRADOR
+        if (empleadoExistente.getUsuario() != null &&
+                empleadoExistente.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+                !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
+            throw new IllegalArgumentException("Solo el SUPERADMIN puede editar a un empleado con rol ADMINISTRADOR.");
+        }
 
         // Validación: campos obligatorios no pueden ser NULL o vacíos
         if (datosNuevos.getNombre() == null || datosNuevos.getNombre().trim().isEmpty()) {
@@ -169,27 +201,37 @@ public class EmpleadosService {
         // 1. Buscamos al empleado y sus relaciones
         Empleados empleado = obtenerEmpleadoPorId(id);
 
+        // Obtener rol del usuario autenticado
+        String rolAutenticado = usuariosRepository.findByCorreo(correoAutenticado)
+                .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
+                .getRol().getNombreRol();
+
         // 2. Validaciones de seguridad
-        // No puedes eliminarte a ti mismo
+        // Validación 1: no puedes eliminarte a ti mismo
         if (empleado.getUsuario() != null &&
                 empleado.getUsuario().getCorreo().equalsIgnoreCase(correoAutenticado)) {
             throw new IllegalArgumentException("No puedes eliminar tu propio empleado.");
         }
 
-        // No puedes eliminar a un empleado con rol ADMINISTRADOR
+        // Validación 2: nadie puede eliminar a un empleado con rol SUPERADMIN
         if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR")) {
-            throw new IllegalArgumentException("No se puede eliminar a un empleado con rol ADMINISTRADOR.");
+                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("SUPERADMIN")) {
+            throw new IllegalArgumentException("No se puede eliminar a un empleado con rol SUPERADMIN.");
+        }
+
+        // Validación 3: solo SUPERADMIN puede eliminar a un empleado con rol ADMINISTRADOR
+        if (empleado.getUsuario() != null &&
+                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+                !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
+            throw new IllegalArgumentException("Solo el SUPERADMIN puede eliminar a un empleado con rol ADMINISTRADOR.");
         }
 
         // 3. Guardamos la referencia del usuario antes de borrar nada
-        // Si el usuario es NULL, no pasará nada, pero si existe, lo tenemos listo
         int idUsuarioAsociado = (empleado.getUsuario() != null)
                 ? empleado.getUsuario().getIdUsuario()
                 : -1;
 
         // 4. Borramos al EMPLEADO primero
-        // Esto es vital porque el empleado es quien tiene la FK (llave foránea)
         empleadosRepository.delete(empleado);
 
         // 5. Si el empleado tenía un usuario, lo borramos ahora que ya no hay vínculos
@@ -201,16 +243,28 @@ public class EmpleadosService {
     public void cambiarEstadoEmpleado(int id, EstadoEmpleado nuevoEstado, String correoLogueado) {
         Empleados empleado = obtenerEmpleadoPorId(id);
 
-        // Regla: nadie puede cambiarse a sí mismo
+        // Obtener rol del usuario autenticado
+        String rolAutenticado = usuariosRepository.findByCorreo(correoLogueado)
+                .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
+                .getRol().getNombreRol();
+
+        // Validación 1: nadie puede cambiarse a sí mismo
         if (empleado.getUsuario() != null &&
                 empleado.getUsuario().getCorreo().equalsIgnoreCase(correoLogueado)) {
             throw new IllegalArgumentException("No puedes cambiar tu propio estado.");
         }
 
-        // Regla: no se puede modificar el estado de un empleado con rol ADMINISTRADOR
+        // Validación 2: nadie puede modificar el estado de un empleado con rol SUPERADMIN
         if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR")) {
-            throw new IllegalArgumentException("No se puede modificar el estado de un empleado con rol ADMINISTRADOR.");
+                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("SUPERADMIN")) {
+            throw new IllegalArgumentException("No se puede modificar el estado de un empleado con rol SUPERADMIN.");
+        }
+
+        // Validación 3: solo SUPERADMIN puede modificar el estado de un empleado con rol ADMINISTRADOR
+        if (empleado.getUsuario() != null &&
+                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+                !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
+            throw new IllegalArgumentException("Solo el SUPERADMIN puede modificar el estado de un empleado con rol ADMINISTRADOR.");
         }
 
         empleado.setEstado(nuevoEstado);

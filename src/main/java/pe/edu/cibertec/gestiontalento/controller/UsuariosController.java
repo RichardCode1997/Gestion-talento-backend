@@ -27,8 +27,8 @@ public class UsuariosController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuarios> crearUsuario(@RequestBody Usuarios usuario) {
-        return new ResponseEntity<>(usuariosService.crearUsuario(usuario), HttpStatus.CREATED);
+    public ResponseEntity<Usuarios> crearUsuario(@RequestBody Usuarios usuario, Authentication authentication) {
+        return new ResponseEntity<>(usuariosService.crearUsuario(usuario, authentication.getName()), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -80,8 +80,8 @@ public class UsuariosController {
 
     // Desbloqueo de acceso (Solo cambia estado a 1)
     @PatchMapping("/{id}/activar")
-    public ResponseEntity<Void> activarUsuario(@PathVariable int id) {
-        usuariosService.activarUsuario(id);
+    public ResponseEntity<Void> activarUsuario(@PathVariable int id, Authentication authentication) {
+        usuariosService.activarUsuario(id, authentication.getName());
         return ResponseEntity.noContent().build();
     }
 }

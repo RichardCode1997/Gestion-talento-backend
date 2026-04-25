@@ -57,19 +57,23 @@ public class SecurityConfig {
                         // Público
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // Solo ADMINISTRADOR
-                        .requestMatchers("/api/usuarios/**").hasRole("ADMINISTRADOR")
-                        .requestMatchers("/api/horarios/**").hasRole("ADMINISTRADOR")
+                        // Usuarios: SUPERVISOR solo puede GET, ADMIN puede todo
+                        .requestMatchers(HttpMethod.GET, "/api/usuarios/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR")
+                        .requestMatchers("/api/usuarios/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR")
 
                         // Empleados: SUPERVISOR solo puede GET, ADMIN puede todo
-                        .requestMatchers(HttpMethod.GET, "/api/empleados/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR")
-                        .requestMatchers("/api/empleados/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers(HttpMethod.GET, "/api/empleados/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR")
+                        .requestMatchers("/api/empleados/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR")
+
+                        // Empleados: SUPERVISOR solo puede GET, ADMIN puede todo
+                        .requestMatchers(HttpMethod.GET, "/api/horarios/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR")
+                        .requestMatchers("/api/horarios/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR")
 
                         // ADMIN, SUPERVISOR, ASESOR y SISTEMAS
-                        .requestMatchers("/api/asistencias/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
-                        .requestMatchers("/api/tardanzas/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
-                        .requestMatchers("/api/faltas/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
-                        .requestMatchers("/api/permisos/**").hasAnyRole("ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+                        .requestMatchers("/api/asistencias/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+                        .requestMatchers("/api/tardanzas/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+                        .requestMatchers("/api/faltas/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
+                        .requestMatchers("/api/permisos/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR", "ASESOR", "SISTEMAS")
 
                         // Todos los roles logueados
                         .requestMatchers("/api/noticias/**").authenticated()
