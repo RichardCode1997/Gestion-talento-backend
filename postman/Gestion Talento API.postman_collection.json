@@ -17,7 +17,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3NzE2NzQyMCwiZXhwIjoxNzc3MTY4MzIwfQ.EwdpcqhiMtgvawQWiK6yURzRm9bMFhLh2px_8mcGGKTi9wXdoaSBBFfqWKPl44_Z9h1c46664jm5PYZwkZtSfg",
                   "type": "string"
                 }
               ]
@@ -167,7 +167,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODM4MDAsImV4cCI6MTc3NDA4NDcwMH0.YhRT77SQ3uPwu8asvYIEpjrgZ8PbsnhZRFCNlSXqej9437O83-M1VwxXLp8-2zhkg3Fuzzd5qn6ibM698WVL6A",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3NzE2NTQ4MiwiZXhwIjoxNzc3MTY2MzgyfQ.dY8G7Ov7EZV6wnwoLzFb5M0NGAVMb3EhNSQSanvgN3xvwshMH8doz4HZEF7uoKbckZz385GVGhVOe8cpN3gacA",
                   "type": "string"
                 }
               ]
@@ -176,7 +176,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"correo\": \"manolo@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"rol\": {\r\n        \"idRol\": 3\r\n    }\r\n}",
+              "raw": "{\r\n  \"correo\": \"nuevo@test.com\",\r\n  \"contraseña\": \"123\",\r\n  \"rol\": { \"idRol\": 4 },\r\n  \"empleado\": { \"idEmpleado\": 25 }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -213,7 +213,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"correo\": \"richard@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"rol\": {\r\n        \"idRol\": 2\r\n    }\r\n}",
+              "raw": "{\r\n    \"correo\": \"richard@gmail.com\",\r\n    \"contraseña\": \"123\",\r\n    \"rol\": { \"idRol\": 2 }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -333,7 +333,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlcmFkbWluQGdlc3Rpb250YWxlbnRvLmNvbSIsImlhdCI6MTc3NzA5MjUxNCwiZXhwIjoxNzc3MDkzNDE0fQ.ZH4aY8oJWbYXDv654DuzETbBN0uWUI6ZVdjOYghOw_r9qwf9kJryym5KIKstVQSJB1UABzam4F5SivTx6gx00g",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3NzE2NzQyMCwiZXhwIjoxNzc3MTY4MzIwfQ.EwdpcqhiMtgvawQWiK6yURzRm9bMFhLh2px_8mcGGKTi9wXdoaSBBFfqWKPl44_Z9h1c46664jm5PYZwkZtSfg",
                   "type": "string"
                 }
               ]
@@ -554,7 +554,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzc2VyaWNrc3NvbkBnbWFpbC5jb20iLCJpYXQiOjE3NzQwODUzOTksImV4cCI6MTc3NDA4NjI5OX0.AmemIMEAm-bxgfa6Dg-9ZtSMJsm8ZDU83-ouR-9DOrfWlCBq_fvN4t9eVpA8mqErkU1J7JClOHAoi_LxUmzqDw",
+                  "value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNoYXJkQGdtYWlsLmNvbSIsImlhdCI6MTc3NzE2NTQ4MiwiZXhwIjoxNzc3MTY2MzgyfQ.dY8G7Ov7EZV6wnwoLzFb5M0NGAVMb3EhNSQSanvgN3xvwshMH8doz4HZEF7uoKbckZz385GVGhVOe8cpN3gacA",
                   "type": "string"
                 }
               ]
@@ -563,7 +563,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Manolo\",\r\n    \"apellido\": \"Rojas\",\r\n    \"dni\": \"12121212\",\r\n    \"celular\": \"123123123\",\r\n    \"direccion\": \"Av. Principal 123\",\r\n    \"usuario\": {\r\n        \"idUsuario\": 6\r\n    },\r\n    \"horario\": {\r\n        \"idHorario\": 1\r\n    },\r\n    \"departamento\": {\r\n        \"idDepartamento\": 3\r\n    }\r\n}",
+              "raw": "{\r\n  \"nombre\": \"Juan\",\r\n  \"apellido\": \"Perez\",\r\n  \"dni\": \"99999999\",\r\n  \"celular\": \"999999999\",\r\n  \"direccion\": \"Calle prueba 123\",\r\n  \"horario\": { \"idHorario\": 1 },\r\n  \"departamento\": { \"idDepartamento\": 3 }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -600,7 +600,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nombre\": \"Jeremy\",\r\n    \"apellido\": \"Aliaga\",\r\n    \"dni\": \"44665577\",\r\n    \"celular\": \"993666721\",\r\n    \"direccion\": \"Calle abc mz abc lt.abc\",\r\n    \"usuario\": { \"idUsuario\": 3 },\r\n    \"horario\": { \"idHorario\": 1 },\r\n    \"departamento\": { \"idDepartamento\": 3 }\r\n}",
+              "raw": "{\r\n    \"nombre\": \"Jeremy\",\r\n    \"apellido\": \"Aliaga\",\r\n    \"dni\": \"44665577\",\r\n    \"celular\": \"993666721\",\r\n    \"direccion\": \"Calle abc mz abc lt.abc\",\r\n    \"horario\": { \"idHorario\": 1 },\r\n    \"departamento\": { \"idDepartamento\": 3 }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
