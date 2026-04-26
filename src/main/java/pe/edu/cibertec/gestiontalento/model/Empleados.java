@@ -23,10 +23,6 @@ public class Empleados {
     private EstadoEmpleado estado = EstadoEmpleado.Activo;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuarios usuario;
-
-    @ManyToOne
     @JoinColumn(name = "id_horario")
     private Horarios horario;
 

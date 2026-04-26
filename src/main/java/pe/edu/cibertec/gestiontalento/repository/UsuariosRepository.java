@@ -14,6 +14,9 @@ public interface UsuariosRepository extends JpaRepository<Usuarios, Integer> {
     // Login SEGURO: Solo encuentra al usuario si su estado es 1 (true)
     Optional<Usuarios> findByCorreoAndEstadoTrue(String correo);
 
+    // Busca el usuario vinculado a un empleado específico. Usado para validar unicidad 1:1 al crear usuario.
+    Optional<Usuarios> findByEmpleadoIdEmpleado(int idEmpleado);
+
     // Listado de "Solo Activos"
     List<Usuarios> findByEstadoTrue();
 

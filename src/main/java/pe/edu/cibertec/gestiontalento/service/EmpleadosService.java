@@ -1,18 +1,22 @@
 package pe.edu.cibertec.gestiontalento.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+import pe.edu.cibertec.gestiontalento.dtos.EmpleadoResponseDTO;
 import pe.edu.cibertec.gestiontalento.model.Empleados;
 import pe.edu.cibertec.gestiontalento.model.EstadoEmpleado;
+import pe.edu.cibertec.gestiontalento.model.Usuarios;
 import pe.edu.cibertec.gestiontalento.repository.DepartamentosRepository;
 import pe.edu.cibertec.gestiontalento.repository.EmpleadosRepository;
 import pe.edu.cibertec.gestiontalento.repository.HorariosRepository;
 import pe.edu.cibertec.gestiontalento.repository.UsuariosRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmpleadosService {
@@ -33,49 +37,11 @@ public class EmpleadosService {
         this.departamentosRepository = departamentosRepository;
     }
 
-    public Empleados crearEmpleado(Empleados empleado, String correoAutenticado) {
-        // Obtener rol del usuario autenticado
-        String rolAutenticado = usuariosRepository.findByCorreo(correoAutenticado)
-                .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
-                .getRol().getNombreRol();
 
-        // Validación: solo SUPERADMIN puede crear un empleado vinculado a un ADMINISTRADOR
-        if (empleado.getUsuario() != null) {
-            usuariosRepository.findById(empleado.getUsuario().getIdUsuario()).ifPresent(u -> {
-                if (u.getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
-                        !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
-                    throw new IllegalArgumentException("Solo el SUPERADMIN puede crear un empleado con rol ADMINISTRADOR.");
-                }
-            });
-        }
-
-        // 1. Validar DNI único
-        if (empleadosRepository.findByDni(empleado.getDni()).isPresent()) {
-            throw new IllegalArgumentException("El DNI " + empleado.getDni() + " ya está registrado.");
-        }
-        // 2. Validar Teléfono único
-        if (empleadosRepository.findByCelular(empleado.getCelular()).isPresent()) {
-            throw new IllegalArgumentException("El número de celular " + empleado.getCelular() + " ya está registrado.");
-        }
-        // 3. Validar Usuario Único
-        if (empleado.getUsuario() != null) {
-            int idUser = empleado.getUsuario().getIdUsuario();
-            if (empleadosRepository.findByUsuarioIdUsuario(idUser).isPresent()) {
-                throw new IllegalArgumentException("Error: El usuario con ID " + idUser + " ya está asignado a otro empleado.");
-            }
-        }
-
-        cargarRelaciones(empleado);
-        empleado.setEstado(EstadoEmpleado.Activo);// Aseguramos que nazca activo
-        return empleadosRepository.save(empleado);
-    }
-
-    // Metodo privado para evitar repetir código y limpiar los NULLs en la respuesta
+    // -----------------------------------------------------------------------
+    // Helper: carga relaciones horario y departamento desde BD.
+    // -----------------------------------------------------------------------
     private void cargarRelaciones(Empleados empleado) {
-        if (empleado.getUsuario() != null) {
-            usuariosRepository.findById(empleado.getUsuario().getIdUsuario())
-                    .ifPresent(empleado::setUsuario);
-        }
         if (empleado.getHorario() != null) {
             horariosRepository.findById(empleado.getHorario().getIdHorario())
                     .ifPresent(empleado::setHorario);
@@ -86,50 +52,118 @@ public class EmpleadosService {
         }
     }
 
-    public Page<Empleados> listarEmpleados(Pageable pageable) {
-        return empleadosRepository.findAll(pageable);
+    // -----------------------------------------------------------------------
+    // Helper: obtiene el usuario vinculado a un empleado.
+    // -----------------------------------------------------------------------
+    private Optional<Usuarios> obtenerUsuarioDeEmpleado(int idEmpleado) {
+        return usuariosRepository.findByEmpleadoIdEmpleado(idEmpleado);
     }
 
-    public List<Empleados> listarPorEstado(EstadoEmpleado estado) {
-        return empleadosRepository.findByEstado(estado);
+    // -----------------------------------------------------------------------
+    // Helper: obtiene el rol del empleado vía su usuario vinculado.
+    // -----------------------------------------------------------------------
+    private String obtenerRolDeEmpleado(Empleados empleado) {
+        return obtenerUsuarioDeEmpleado(empleado.getIdEmpleado())
+                .map(u -> u.getRol().getNombreRol())
+                .orElse("");
+    }
+
+    // -----------------------------------------------------------------------
+    // Helper: convierte Empleados → EmpleadoResponseDTO con datos del usuario.
+    // -----------------------------------------------------------------------
+    private EmpleadoResponseDTO toDTO(Empleados emp) {
+        Usuarios usuario = obtenerUsuarioDeEmpleado(emp.getIdEmpleado()).orElse(null);
+        return EmpleadoResponseDTO.from(emp, usuario);  // ← faltaba este return y cerrar llave
+    }
+
+    // -----------------------------------------------------------------------
+    // LISTAR — devuelve DTOs filtrando SUPERADMIN en el backend.
+    // -----------------------------------------------------------------------
+    public Page<EmpleadoResponseDTO> listarEmpleados(Pageable pageable) {
+        Page<Empleados> pagina = empleadosRepository.findAll(pageable);
+
+        List<EmpleadoResponseDTO> dtos = pagina.getContent().stream()
+                .map(this::toDTO)
+                .filter(dto -> !"SUPERADMIN".equals(dto.getRolUsuario()))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(dtos, pageable, pagina.getTotalElements());
+    }
+
+
+    public List<EmpleadoResponseDTO> listarPorEstado(EstadoEmpleado estado) {
+        return empleadosRepository.findByEstado(estado).stream()
+                .map(this::toDTO)
+                .filter(dto -> !"SUPERADMIN".equals(dto.getRolUsuario()))
+                .collect(Collectors.toList());
+    }
+
+    public EmpleadoResponseDTO obtenerEmpleadoPorIdDTO(int id) {
+        return toDTO(obtenerEmpleadoPorId(id));
     }
 
     public Empleados obtenerPorDni(String dni) {
         return empleadosRepository.findByDni(dni)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró ningún empleado con el DNI: " + dni));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No se encontró ningún empleado con el DNI: " + dni));
     }
 
     public Empleados obtenerEmpleadoPorId(int id) {
         return empleadosRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No se encontró el empleado con ID: " + id));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No se encontró el empleado con ID: " + id));
     }
 
+    // Lista empleados que aún no tienen usuario vinculado.
+    // Usado por el combobox del formulario de creación de usuarios.
     public List<Empleados> listarSinUsuario() {
-        return empleadosRepository.findByUsuarioIsNull();
+        return empleadosRepository.findEmpleadosSinUsuario();
     }
 
-    public Empleados actualizarEmpleado(int id, Empleados datosNuevos, String correoAutenticado) {
-        Empleados empleadoExistente = obtenerEmpleadoPorId(id);
+    public Empleados crearEmpleado(Empleados empleado, String correoAutenticado) {
 
-        // Obtener rol del usuario autenticado
         String rolAutenticado = usuariosRepository.findByCorreo(correoAutenticado)
                 .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
                 .getRol().getNombreRol();
 
+        // Validación 1: DNI único
+        if (empleadosRepository.findByDni(empleado.getDni()).isPresent()) {
+            throw new IllegalArgumentException("El DNI " + empleado.getDni() + " ya está registrado.");
+        }
+
+        // Validación 2: celular único
+        if (empleadosRepository.findByCelular(empleado.getCelular()).isPresent()) {
+            throw new IllegalArgumentException("El número de celular " + empleado.getCelular() + " ya está registrado.");
+        }
+
+        cargarRelaciones(empleado);
+        empleado.setEstado(EstadoEmpleado.Activo);
+
+        return empleadosRepository.save(empleado);
+    }
+
+    public Empleados actualizarEmpleado(int id, Empleados datosNuevos, String correoAutenticado) {
+
+        Empleados empleadoExistente = obtenerEmpleadoPorId(id);
+
+        String rolAutenticado = usuariosRepository.findByCorreo(correoAutenticado)
+                .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
+                .getRol().getNombreRol();
+
+        String rolDelEmpleado = obtenerRolDeEmpleado(empleadoExistente);
+
         // Validación 1: nadie puede editar a un empleado con rol SUPERADMIN
-        if (empleadoExistente.getUsuario() != null &&
-                empleadoExistente.getUsuario().getRol().getNombreRol().equalsIgnoreCase("SUPERADMIN")) {
+        if (rolDelEmpleado.equalsIgnoreCase("SUPERADMIN")) {
             throw new IllegalArgumentException("No se puede editar a un empleado con rol SUPERADMIN.");
         }
 
         // Validación 2: solo SUPERADMIN puede editar a un empleado con rol ADMINISTRADOR
-        if (empleadoExistente.getUsuario() != null &&
-                empleadoExistente.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+        if (rolDelEmpleado.equalsIgnoreCase("ADMINISTRADOR") &&
                 !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
             throw new IllegalArgumentException("Solo el SUPERADMIN puede editar a un empleado con rol ADMINISTRADOR.");
         }
 
-        // Validación: campos obligatorios no pueden ser NULL o vacíos
+        // Validación: campos obligatorios
         if (datosNuevos.getNombre() == null || datosNuevos.getNombre().trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre es obligatorio.");
         }
@@ -152,126 +186,111 @@ public class EmpleadosService {
             throw new IllegalArgumentException("El horario es obligatorio.");
         }
 
-        if (datosNuevos.getUsuario() != null) {
-            int idNuevoUser = datosNuevos.getUsuario().getIdUsuario();
-            int idViejoUser = (empleadoExistente.getUsuario() != null)
-                    ? empleadoExistente.getUsuario().getIdUsuario() : -1;
-
-            // Solo validamos si está intentando cambiar de usuario
-            if (idNuevoUser != idViejoUser) {
-                if (empleadosRepository.findByUsuarioIdUsuario(idNuevoUser).isPresent()) {
-                    throw new IllegalArgumentException("Error: El nuevo usuario ya está vinculado a otro empleado.");
-                }
-            }
-        }
-
-        // VALIDACIÓN DE DNI
+        // Validación DNI único (solo si cambió)
         if (!empleadoExistente.getDni().equals(datosNuevos.getDni())) {
             if (empleadosRepository.findByDni(datosNuevos.getDni()).isPresent()) {
-                throw new IllegalArgumentException("Error: El DNI '" + datosNuevos.getDni() + "' ya esta en uso.");
+                throw new IllegalArgumentException("Error: El DNI '" + datosNuevos.getDni() + "' ya está en uso.");
             }
             empleadoExistente.setDni(datosNuevos.getDni());
         }
 
-        // VALIDACIÓN DE CELULAR
+        // Validación celular único (solo si cambió)
         if (!empleadoExistente.getCelular().equals(datosNuevos.getCelular())) {
             if (empleadosRepository.findByCelular(datosNuevos.getCelular()).isPresent()) {
-                throw new IllegalArgumentException("Error: El celular '" + datosNuevos.getCelular() + "' ya esta en uso.");
+                throw new IllegalArgumentException("Error: El celular '" + datosNuevos.getCelular() + "' ya está en uso.");
             }
             empleadoExistente.setCelular(datosNuevos.getCelular());
         }
 
-        // Mapeamos los campos básicos
         empleadoExistente.setNombre(datosNuevos.getNombre());
         empleadoExistente.setApellido(datosNuevos.getApellido());
         empleadoExistente.setDireccion(datosNuevos.getDireccion());
-
-        // Mapeamos y cargamos las relaciones nuevas
-        if (datosNuevos.getUsuario() != null) {
-            empleadoExistente.setUsuario(datosNuevos.getUsuario());
-        }
         empleadoExistente.setHorario(datosNuevos.getHorario());
         empleadoExistente.setDepartamento(datosNuevos.getDepartamento());
 
+        // NOTA: la vinculación con usuario NO se modifica desde aquí.
+        // El usuario está en usuarios.id_empleado, no en empleados.
+
         cargarRelaciones(empleadoExistente);
+
         return empleadosRepository.save(empleadoExistente);
     }
 
     public void eliminarEmpleado(int id, String correoAutenticado) {
-        // 1. Buscamos al empleado y sus relaciones
+
         Empleados empleado = obtenerEmpleadoPorId(id);
 
-        // Obtener rol del usuario autenticado
         String rolAutenticado = usuariosRepository.findByCorreo(correoAutenticado)
                 .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
                 .getRol().getNombreRol();
 
-        // 2. Validaciones de seguridad
+        String rolDelEmpleado = obtenerRolDeEmpleado(empleado);
+
         // Validación 1: no puedes eliminarte a ti mismo
-        if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getCorreo().equalsIgnoreCase(correoAutenticado)) {
+        Optional<Usuarios> usuarioDelEmpleado = obtenerUsuarioDeEmpleado(empleado.getIdEmpleado());
+        if (usuarioDelEmpleado.isPresent() &&
+                usuarioDelEmpleado.get().getCorreo() != null &&
+                usuarioDelEmpleado.get().getCorreo().equalsIgnoreCase(correoAutenticado)) {
             throw new IllegalArgumentException("No puedes eliminar tu propio empleado.");
         }
 
         // Validación 2: nadie puede eliminar a un empleado con rol SUPERADMIN
-        if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("SUPERADMIN")) {
+        if (rolDelEmpleado.equalsIgnoreCase("SUPERADMIN")) {
             throw new IllegalArgumentException("No se puede eliminar a un empleado con rol SUPERADMIN.");
         }
 
         // Validación 3: solo SUPERADMIN puede eliminar a un empleado con rol ADMINISTRADOR
-        if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+        if (rolDelEmpleado.equalsIgnoreCase("ADMINISTRADOR") &&
                 !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
             throw new IllegalArgumentException("Solo el SUPERADMIN puede eliminar a un empleado con rol ADMINISTRADOR.");
         }
 
-        // 3. Guardamos la referencia del usuario antes de borrar nada
-        int idUsuarioAsociado = (empleado.getUsuario() != null)
-                ? empleado.getUsuario().getIdUsuario()
-                : -1;
+        // Con el nuevo modelo: la FK está en usuarios.id_empleado.
+        // Primero borramos el usuario vinculado (si existe), luego el empleado.
+        // Esto respeta la integridad referencial: no se puede borrar el empleado
+        // mientras exista un usuario apuntando a él.
+        usuarioDelEmpleado.ifPresent(usuariosRepository::delete);
 
-        // 4. Borramos al EMPLEADO primero
         empleadosRepository.delete(empleado);
-
-        // 5. Si el empleado tenía un usuario, lo borramos ahora que ya no hay vínculos
-        if (idUsuarioAsociado != -1) {
-            usuariosRepository.deleteById(idUsuarioAsociado);
-        }
     }
 
     public void cambiarEstadoEmpleado(int id, EstadoEmpleado nuevoEstado, String correoLogueado) {
+
         Empleados empleado = obtenerEmpleadoPorId(id);
 
-        // Obtener rol del usuario autenticado
         String rolAutenticado = usuariosRepository.findByCorreo(correoLogueado)
                 .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado"))
                 .getRol().getNombreRol();
 
+        String rolDelEmpleado = obtenerRolDeEmpleado(empleado);
+        Optional<Usuarios> usuarioDelEmpleado = obtenerUsuarioDeEmpleado(empleado.getIdEmpleado());
+
         // Validación 1: nadie puede cambiarse a sí mismo
-        if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getCorreo().equalsIgnoreCase(correoLogueado)) {
+        if (usuarioDelEmpleado.isPresent() &&
+                usuarioDelEmpleado.get().getCorreo() != null &&
+                usuarioDelEmpleado.get().getCorreo().equalsIgnoreCase(correoLogueado)) {
             throw new IllegalArgumentException("No puedes cambiar tu propio estado.");
         }
 
         // Validación 2: nadie puede modificar el estado de un empleado con rol SUPERADMIN
-        if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("SUPERADMIN")) {
+        if (rolDelEmpleado.equalsIgnoreCase("SUPERADMIN")) {
             throw new IllegalArgumentException("No se puede modificar el estado de un empleado con rol SUPERADMIN.");
         }
 
         // Validación 3: solo SUPERADMIN puede modificar el estado de un empleado con rol ADMINISTRADOR
-        if (empleado.getUsuario() != null &&
-                empleado.getUsuario().getRol().getNombreRol().equalsIgnoreCase("ADMINISTRADOR") &&
+        if (rolDelEmpleado.equalsIgnoreCase("ADMINISTRADOR") &&
                 !rolAutenticado.equalsIgnoreCase("SUPERADMIN")) {
             throw new IllegalArgumentException("Solo el SUPERADMIN puede modificar el estado de un empleado con rol ADMINISTRADOR.");
         }
 
         empleado.setEstado(nuevoEstado);
 
-        // Regla de negocio: solo CESADO afecta al usuario automáticamente
-        if (empleado.getUsuario() != null && nuevoEstado == EstadoEmpleado.Cesado) {
-            empleado.getUsuario().setEstado(false);
+        // Regla de negocio: si el empleado es CESADO, su usuario se desactiva automáticamente
+        if (nuevoEstado == EstadoEmpleado.Cesado) {
+            usuarioDelEmpleado.ifPresent(u -> {
+                u.setEstado(false);
+                usuariosRepository.save(u);
+            });
         }
 
         empleadosRepository.save(empleado);

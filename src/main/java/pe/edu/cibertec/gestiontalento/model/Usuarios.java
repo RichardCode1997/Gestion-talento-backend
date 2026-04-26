@@ -29,4 +29,7 @@ public class Usuarios {
     @JoinColumn(name = "id_rol")
     private Roles rol;
 
+    @ManyToOne
+    @JoinColumn(name = "id_empleado", nullable = false)
+    private Empleados empleado;
 }

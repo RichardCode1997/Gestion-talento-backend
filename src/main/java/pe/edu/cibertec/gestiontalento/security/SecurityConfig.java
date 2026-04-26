@@ -1,5 +1,6 @@
 package pe.edu.cibertec.gestiontalento.security;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import java.util.Arrays;
 
 @Configuration
@@ -50,8 +51,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable()) // Nueva sintaxis para deshabilitar CSRF
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exception -> exception
+                        // 401 - No autenticado (sin token o token inválido)
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                        // 403 - Autenticado pero sin permisos suficientes
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.getWriter().write(
+                                    "{\"error\": \"Acceso denegado: no tienes permisos para realizar esta acción.\"}"
+                            );
+                        })
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // Público
@@ -65,7 +77,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/empleados/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR")
                         .requestMatchers("/api/empleados/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR")
 
-                        // Empleados: SUPERVISOR solo puede GET, ADMIN puede todo
+                        // Horarios: SUPERVISOR solo puede GET, ADMIN puede todo
                         .requestMatchers(HttpMethod.GET, "/api/horarios/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR", "SUPERVISOR")
                         .requestMatchers("/api/horarios/**").hasAnyRole("SUPERADMIN", "ADMINISTRADOR")
 
@@ -79,32 +91,25 @@ public class SecurityConfig {
                         .requestMatchers("/api/noticias/**").authenticated()
                         .requestMatchers("/api/departamentos/**").authenticated()
                         .requestMatchers("/api/roles/**").authenticated()
-
                         .anyRequest().authenticated()
                 );
 
         http.addFilterBefore(rateLimitingFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        // BUENA PRÁCTICA: En lugar de "*", usa el puerto exacto de tu Vue (Vite suele ser 5173)
-        // Esto evita ataques de Cross-Site Request Forgery (CSRF)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173",
-                "https://gestion-talento-frontend-swart.vercel.app"));
-
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:5173",
+                "https://gestion-talento-frontend-swart.vercel.app"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
-
-        // PERMITIR CREDENCIALES: Si usas JWT en Cookies o Headers específicos
         configuration.setAllowCredentials(true);
-
-        // EXPOSE HEADERS: Si el backend genera el token y lo manda en el Header,
-        // Vue necesita permiso explícito para leerlo.
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
